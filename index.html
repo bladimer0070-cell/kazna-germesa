@@ -533,7 +533,21 @@ async function connect(){
 }
 
 /* ===== Отрисовка ===== */
-function startApp(){renderShell();render();if(!unsub)connect();}
+function startApp(){renderShell();render();if(!unsub)connect();runImport();}
+async function runImport(){
+  const h=location.hash;
+  if(!h.startsWith('#import=')||!db)return;
+  try{
+    let b=h.slice(8).replace(/-/g,'+').replace(/_/g,'/');while(b.length%4)b+='=';
+    const data=JSON.parse(new TextDecoder().decode(Uint8Array.from(atob(b),c=>c.charCodeAt(0))));
+    const batch=db.batch();
+    (data.projects||[]).forEach(p=>{const {id,...rest}=p;batch.set(db.collection('projects').doc(id),rest);});
+    if(data.settings)batch.set(db.doc('settings/main'),data.settings);
+    await batch.commit();
+    history.replaceState(null,'',location.pathname+location.search);
+    toast('Перенесено проектов: '+(data.projects||[]).length);
+  }catch(e){toast(e&&e.code==='permission-denied'?'База не пускает этот аккаунт':'Перенос не удался, попробуй открыть ссылку ещё раз');}
+}
 function stopApp(){if(unsub){unsub();unsub=null;}if(unsubRate){unsubRate();unsubRate=null;}clearTimeout(loadTimer);S.projects=[];S.loaded=false;S.dbState='wait';closeDrawer(true);}
 
 function renderShell(){
