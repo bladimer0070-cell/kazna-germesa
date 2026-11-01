@@ -99,6 +99,44 @@ button{cursor:pointer}
 .gate .btn-gold{height:54px;border-radius:18px;font-size:15px;margin-top:4px;letter-spacing:.02em}
 .gate .err{text-align:center}
 
+/* ——— Просрочки, график, расчёт, общие расходы ——— */
+.badge{display:inline-grid;place-items:center;min-width:17px;height:17px;padding:0 5px;margin-left:6px;border-radius:9px;background:rgba(122,32,40,.75);color:#f6dadc;font-size:10.5px;font-weight:700;font-style:normal;vertical-align:1px}
+.alert{padding:14px 18px;border-color:rgba(201,138,143,.35);background:linear-gradient(90deg,rgba(122,32,40,.30),rgba(22,22,25,.58) 70%);display:grid;gap:10px}
+.alert-h{display:flex;align-items:center;gap:10px;font-weight:600;color:#f3d4d7}
+.alert-h svg{flex-shrink:0}
+.alert-list{display:flex;gap:8px;flex-wrap:wrap}
+.alert-item{display:inline-flex;align-items:center;gap:8px;padding:6px 11px;border-radius:9px;border:1px solid rgba(201,138,143,.3);background:rgba(10,10,12,.35);font-size:12.5px;color:var(--pearl-soft);cursor:pointer;transition:background .2s}
+.alert-item:hover{background:rgba(122,32,40,.3);color:var(--pearl)}
+.alert-item b{color:var(--pearl);font-weight:600}
+.chart-wrap{position:relative}
+.chart-wrap svg{display:block;width:100%;height:auto;overflow:visible}
+.legend{display:flex;gap:16px;font-size:12px;color:var(--pearl-soft);margin:-4px 0 10px}
+.legend span{display:inline-flex;align-items:center;gap:7px}
+.legend i{width:10px;height:10px;border-radius:3px;display:inline-block}
+.tip{position:absolute;pointer-events:none;z-index:5;min-width:170px;padding:10px 12px;border-radius:10px;background:rgba(24,24,27,.96);border:1px solid var(--line-2);box-shadow:0 12px 30px rgba(0,0,0,.45);font-size:12.5px;display:grid;gap:4px;transform:translate(-50%,-100%);transition:opacity .15s}
+.tip b{font-family:var(--serif);font-weight:500;font-size:14px;color:var(--pearl)}
+.tip div{display:flex;justify-content:space-between;gap:14px;color:var(--pearl-soft)}
+.tip div span:last-child{color:var(--pearl);font-variant-numeric:tabular-nums}
+.settle{display:grid;gap:14px}
+.settle-cols{display:grid;grid-template-columns:1fr 1fr;gap:10px}
+.settle-p{display:grid;gap:6px;padding:12px 14px;border-radius:12px;background:var(--glass-3);border:1px solid var(--line)}
+.settle-p .who-h{display:flex;align-items:center;gap:8px;font-weight:600}
+.settle-p .row2{display:flex;justify-content:space-between;gap:10px;font-size:12.5px;color:var(--pearl-dim)}
+.settle-p .row2 b{color:var(--pearl);font-weight:500;font-variant-numeric:tabular-nums}
+.settle-res{display:flex;align-items:center;justify-content:space-between;gap:12px;flex-wrap:wrap;padding:14px 16px;border-radius:12px;border:1px solid var(--line-2);background:linear-gradient(100deg,rgba(201,167,95,.12),rgba(255,255,255,.02))}
+.settle-res .big{font-family:"Cormorant Garamond",var(--serif);font-size:28px;font-weight:600;line-height:1.1}
+.settle-res .big small{display:block;font-family:var(--sans);font-size:12px;font-weight:400;color:var(--pearl-dim);margin-bottom:2px}
+.settle-hist{display:grid;gap:4px;font-size:12px;color:var(--pearl-dim)}
+.settle-hist div{display:flex;justify-content:space-between;gap:10px;align-items:center}
+.gen-form{display:grid;grid-template-columns:minmax(0,1.2fr) minmax(0,1fr) 150px auto auto;gap:8px;align-items:center}
+.gen-form .inp{height:40px}
+.gen-form .seg{height:40px}
+.gen-form .seg button{padding:0 11px}
+.gen-row{display:grid;grid-template-columns:auto minmax(0,1fr) auto auto 28px;gap:12px;align-items:center;padding:9px 8px;border-bottom:1px solid var(--line)}
+.gen-row:last-child{border-bottom:0}
+.gen-row .t b{font-weight:500}
+.share-hint{font-size:12px;color:var(--pearl-dim)}
+
 /* ——— Shell ——— */
 .top{position:sticky;top:env(safe-area-inset-top,0px);z-index:20;padding-block:12px;padding-left:max(16px,env(safe-area-inset-left,0px));padding-right:max(16px,env(safe-area-inset-right,0px))}
 .top-in{max-width:1240px;margin:0 auto;display:flex;align-items:center;gap:14px;padding:8px 10px 8px 14px}
@@ -229,8 +267,12 @@ select.inp option{background:#1b1b1e;color:var(--pearl)}
 textarea.inp{min-height:90px;resize:vertical;line-height:1.5}
 .items{display:grid;gap:6px}
 .item{display:grid;gap:6px;align-items:center;padding:8px;border:1px solid var(--line);border-radius:10px;background:rgba(255,255,255,.025)}
-.item.p{grid-template-columns:minmax(0,1fr) 150px auto 28px}
-.item.e{grid-template-columns:minmax(0,1.1fr) minmax(0,1fr) 150px 28px}
+.item.p{grid-template-columns:minmax(0,1fr) 140px auto auto 28px}
+.item.e{grid-template-columns:minmax(0,1.1fr) minmax(0,1fr) 140px auto 28px}
+.who button{min-width:30px;padding:0 9px}
+.who .fl{display:none}
+@media (max-width:640px){.item .who .sh{display:none}.item .who .fl{display:inline}}
+@media (min-width:641px) and (max-width:1380px){.brand .wordmark{display:none}.tab{padding:7px 10px}}
 .item .inp{padding:7px 9px;font-size:13px;border-radius:8px}
 .item.t{grid-template-columns:28px 1fr 30px}
 .x{width:28px;height:28px;border-radius:7px;border:0;background:none;color:var(--pearl-dim);display:grid;place-items:center}
@@ -254,6 +296,7 @@ input[type=date]::-webkit-calendar-picker-indicator{cursor:pointer;opacity:.55;f
 .rub{position:relative;display:block;min-width:0}
 .rub::after{content:"₽";position:absolute;right:11px;top:50%;transform:translateY(-50%);color:var(--pearl-dim);pointer-events:none;font-size:13px}
 .rub .inp{padding-right:26px}
+.rub.pct::after{content:"%"}
 .item .inp{height:36px}
 .form .inp{height:42px}
 /* свой выпадающий список вместо системного */
@@ -302,9 +345,13 @@ input[type=date]::-webkit-calendar-picker-indicator{cursor:pointer;opacity:.55;f
   .form{grid-template-columns:1fr}
   .d-sum{grid-template-columns:repeat(2,minmax(0,1fr))}
   .item.p,.item.e{grid-template-columns:minmax(0,1fr) minmax(0,1fr) 28px}
-  .item.p>:nth-child(3),.item.e>:nth-child(3){grid-column:1/3;grid-row:2}
-  .item.p>:nth-child(4),.item.e>:nth-child(4){grid-column:3;grid-row:1}
-  .item.p .seg{display:flex}.item.p .seg button{flex:1}
+  .item.p>:nth-child(3),.item.e>:nth-child(3){grid-column:1;grid-row:2}
+  .item.p>:nth-child(4),.item.e>:nth-child(4){grid-column:2;grid-row:2}
+  .item.p>:nth-child(5),.item.e>:nth-child(5){grid-column:3;grid-row:1}
+  .item .seg{display:flex}.item .seg button{flex:1}
+  .settle-cols{grid-template-columns:1fr!important}
+  .gen-form{grid-template-columns:1fr 1fr!important}
+  .gen-form>.btn{grid-column:1/-1}
   .cur-pop{right:-60px}
   .d-head,.d-body,.d-foot{padding-left:16px;padding-right:16px}
   .lens{border-radius:28px;aspect-ratio:auto;padding:40px 0}
@@ -420,9 +467,11 @@ const STAGES=[
   {id:'lost',name:'Отказ',cls:'st-lost'}
 ];
 const EXP_CATS=['Монтаж','Сценарии','Студия','Съёмка','Дизайн','Реклама','Сервисы','Другое'];
+const GEN_CATS=['Подписки','Реклама','Сервисы','Связь','Обучение','Техника','Налоги','Другое'];
+const MONTHS=['янв','фев','мар','апр','май','июн','июл','авг','сен','окт','ноя','дек'];
 
-const S={cur:'rub',rate:80.56,rateEur:null,rateInfo:null,curOpen:false,user:null,projects:[],loaded:false,dbState:'wait',tab:'overview',stage:'all',q:'',draft:null,editId:null,confirmDel:false,readOnly:false};
-let db=null,unsub=null,unsubRate=null,loadTimer=null;
+const S={general:{items:[],transfers:[]},genDraft:null,settleConfirm:false,cur:'rub',rate:80.56,rateEur:null,rateInfo:null,curOpen:false,user:null,projects:[],loaded:false,dbState:'wait',tab:'overview',stage:'all',q:'',draft:null,editId:null,confirmDel:false,readOnly:false};
+let db=null,unsub=null,unsubRate=null,unsubGen=null,loadTimer=null;
 
 const $=s=>document.querySelector(s);
 const esc=v=>String(v??'').replace(/[&<>"']/g,c=>({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;',"'":'&#39;'}[c]));
@@ -486,6 +535,31 @@ function calc(p){
   const next=planned.filter(x=>x.date).sort((a,b)=>a.date.localeCompare(b.date))[0];
   return {paid,total,left,exp,profit:paid-exp,next,pct:total?Math.min(paid/total,1):0};
 }
+const defWho=p=>p.owner==='sasha'?'sasha':'pasha';
+function shareOf(p){
+  if(p.owner==='pasha')return 1;
+  if(p.owner==='sasha')return 0;
+  const v=p.share;return v===''||v==null||isNaN(+v)?0.5:Math.min(Math.max(+v,0),100)/100;
+}
+const genTotal=()=>(S.general.items||[]).reduce((a,x)=>a+(+x.amount||0),0);
+function overdueList(list){
+  const t=today(),r=[];
+  list.forEach(p=>{if(p.stage==='lost')return;(p.payments||[]).forEach(x=>{if(x.status!=='paid'&&x.date&&x.date<t)r.push({p,x});});});
+  return r.sort((a,b)=>a.x.date.localeCompare(b.x.date));
+}
+function settle(){
+  const held={pasha:0,sasha:0},ent={pasha:0,sasha:0};
+  S.projects.forEach(p=>{
+    const dw=defWho(p);let paid=0,exp=0;
+    (p.payments||[]).forEach(x=>{if(x.status!=='paid')return;const a=+x.amount||0;paid+=a;held[x.to==='sasha'||x.to==='pasha'?x.to:dw]+=a;});
+    (p.expenses||[]).forEach(x=>{const a=+x.amount||0;exp+=a;held[x.by==='sasha'||x.by==='pasha'?x.by:dw]-=a;});
+    const pr=paid-exp,sh=shareOf(p);ent.pasha+=pr*sh;ent.sasha+=pr*(1-sh);
+  });
+  (S.general.items||[]).forEach(x=>{const a=+x.amount||0;held[x.by==='sasha'?'sasha':'pasha']-=a;ent.pasha-=a/2;ent.sasha-=a/2;});
+  (S.general.transfers||[]).forEach(t=>{const a=+t.amount||0;if(held[t.from]!=null)held[t.from]-=a;if(held[t.to]!=null)held[t.to]+=a;});
+  const diff=Math.round(held.pasha-ent.pasha);
+  return {held,ent,diff};
+}
 function agg(list){
   const r={paid:0,left:0,exp:0,profit:0,active:0,count:list.length};
   list.forEach(p=>{const c=calc(p);r.paid+=c.paid;r.left+=c.left;r.exp+=c.exp;r.profit+=c.profit;if(['pre','work','hand'].includes(p.stage))r.active++;});
@@ -536,6 +610,11 @@ async function connect(){
     else if(S.dbState==='wait'){S.dbState='cache';}
     render();
   },err=>{clearTimeout(loadTimer);S.dbState=err.code==='permission-denied'?'denied':'err';render();});
+  unsubGen=db.doc('settings/general').onSnapshot(s=>{
+    const d=s.exists?s.data():{};
+    S.general={items:Array.isArray(d.items)?d.items:[],transfers:Array.isArray(d.transfers)?d.transfers:[]};
+    render();
+  },()=>{});
   unsubRate=db.doc('settings/main').onSnapshot(s=>{
     if(s.exists){S.rateInfo=s.data();const r=+S.rateInfo.usdRub,e=+S.rateInfo.eurRub;if(r>0)S.rate=r;if(e>0)S.rateEur=e;}
     render();
@@ -576,7 +655,7 @@ async function runImport(){
     toast('Перенесено проектов: '+(data.projects||[]).length);
   }catch(e){toast(e&&e.code==='permission-denied'?'База не пускает этот аккаунт':'Перенос не удался, попробуй открыть ссылку ещё раз');}
 }
-function stopApp(){if(unsub){unsub();unsub=null;}if(unsubRate){unsubRate();unsubRate=null;}clearTimeout(loadTimer);S.projects=[];S.loaded=false;S.dbState='wait';closeDrawer(true);}
+function stopApp(){if(unsub){unsub();unsub=null;}if(unsubRate){unsubRate();unsubRate=null;}if(unsubGen){unsubGen();unsubGen=null;}S.general={items:[],transfers:[]};clearTimeout(loadTimer);S.projects=[];S.loaded=false;S.dbState='wait';closeDrawer(true);}
 
 function renderShell(){
   const me=USERS[S.user];
@@ -595,8 +674,10 @@ function renderShell(){
 }
 
 function renderTabs(){
-  const t=[{id:'overview',n:'',name:'Сводка'},...DIRS];
-  $('#tabs').innerHTML=t.map(x=>`<button class="tab" role="tab" aria-selected="${S.tab===x.id}" data-tab="${x.id}">${x.n?`<small>${x.n}</small>`:''}${esc(x.name)}</button>`).join('');
+  const t=[{id:'overview',n:'',name:'Сводка'},...DIRS,{id:'general',n:'',name:'Общие'}];
+  const od=overdueList(S.projects);
+  const cnt=id=>id==='overview'?od.length:od.filter(o=>o.p.dir===id).length;
+  $('#tabs').innerHTML=t.map(x=>{const c=x.id==='general'?0:cnt(x.id);return `<button class="tab" role="tab" aria-selected="${S.tab===x.id}" data-tab="${x.id}">${x.n?`<small>${x.n}</small>`:''}${esc(x.name)}${c?`<em class="badge" title="Просроченных оплат: ${c}">${c}</em>`:''}</button>`;}).join('');
   $('#tabs').querySelectorAll('[data-tab]').forEach(b=>b.onclick=()=>{S.tab=b.dataset.tab;S.stage='all';S.q='';store('kazna_tab',S.tab);render();window.scrollTo({top:0,behavior:'smooth'});});
 }
 
@@ -609,7 +690,7 @@ function dbNote(){
   return h;
 }
 
-function kpiBlock(a){
+function kpiBlock(a,expHint){
   const all=a.paid+a.left,pct=all?Math.round(a.paid/all*100):0;
   return `<section class="total glass">
     <div class="total-l"><span class="label">Всего заработано</span><span class="total-v num gold-text">${money(all)}</span></div>
@@ -621,7 +702,7 @@ function kpiBlock(a){
   <section class="kpis">
     <div class="kpi glass main"><span class="label">Получено</span><span class="v num gold-text">${money(a.paid)}</span><span class="h">оплаты с отметкой «пришло»</span></div>
     <div class="kpi glass"><span class="label">Ждём</span><span class="v num">${money(a.left)}</span><span class="h">остаток по договорам</span></div>
-    <div class="kpi glass"><span class="label">Расходы</span><span class="v num">${money(a.exp)}</span><span class="h">монтаж, сценарии, студия…</span></div>
+    <div class="kpi glass"><span class="label">Расходы</span><span class="v num">${money(a.exp)}</span><span class="h">${expHint||'монтаж, сценарии, студия…'}</span></div>
     <div class="kpi glass"><span class="label">Прибыль</span><span class="v num ${a.profit<0?'neg':''}">${money(a.profit)}</span><span class="h">получено минус расходы</span></div>
     <div class="kpi glass"><span class="label">В работе</span><span class="v num">${a.active}<span style="font-size:.55em;color:var(--pearl-dim)"> из ${a.count}</span></span><span class="h">предоплата, работа, сдача</span></div>
   </section>`;
@@ -670,12 +751,15 @@ function render(){
   renderCur();
   const m=$('#main');
   if(S.tab==='overview')m.innerHTML=overview();
+  else if(S.tab==='general')m.innerHTML=generalView();
   else m.innerHTML=dirView(S.tab);
   bindMain();
+  bindExtras();
 }
 
 function overview(){
   const P=S.projects,a=agg(P);
+  const g=genTotal();a.exp+=g;a.profit-=g;
   const loading=!S.loaded&&!P.length&&S.dbState==='wait';
   const maxPaid=Math.max(1,...DIRS.map(d=>agg(P.filter(p=>p.dir===d.id)).paid+agg(P.filter(p=>p.dir===d.id)).left));
   const dirs=DIRS.map(d=>{
@@ -699,17 +783,195 @@ function overview(){
       <span class="pill ${stageOf(p.stage).cls}">${stageOf(p.stage).name}</span></div>`).join('');
   return `
   <div class="head reveal"><div><h1>Привет, <em class="gold-text">${esc(USERS[S.user].name)}</em></h1><p>${loading?'Загружаю данные…':`Всего ${P.length} ${plural(P.length,'проект','проекта','проектов')} по четырём направлениям`}</p></div>
-  ${S.readOnly?'':'<button class="btn btn-gold" data-new="prod">+ Новый проект</button>'}</div>
+  <div style="display:flex;gap:8px;flex-wrap:wrap">${P.length?'<button class="btn btn-ghost" id="xlsx"><svg width="14" height="14" viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-width="1.5" aria-hidden="true"><path d="M8 2v8M4.5 6.5L8 10l3.5-3.5M3 13h10"/></svg>Выгрузить в Excel</button>':''}${S.readOnly?'':'<button class="btn btn-gold" data-new="prod">+ Новый проект</button>'}</div></div>
   ${dbNote()}
-  ${kpiBlock(a)}
+  ${overdueBanner(P)}
+  ${kpiBlock(a,g?'проекты и общие расходы':'')}
   ${P.length||loading?`<div class="grid2">
     <section class="panel glass"><h2>Направления <small>получено и расходы</small></h2><div class="dirs">${dirs}</div></section>
     <section class="panel glass"><h2>Ждём оплату <small>${upcoming.length?money(upcoming.reduce((s,u)=>s+(+u.x.amount||0),0)):''}</small></h2>
       <div class="list">${up||'<p class="note" style="padding:6px 0">Запланированных платежей нет. Добавь их в карточке проекта со статусом «ждём».</p>'}</div></section>
   </div>
-  <section class="panel glass"><h2>Последние изменения</h2><div class="list">${recent}</div></section>`
+  <section class="panel glass"><h2>По месяцам <small>пришло и потрачено</small></h2>${monthChart()}</section>
+  <div class="grid2">
+    <section class="panel glass"><h2>Расчёт между нами</h2>${settlePanel()}</section>
+    <section class="panel glass"><h2>Последние изменения</h2><div class="list">${recent}</div></section>
+  </div>`
   :emptyState('prod')}`;
 }
+
+const warnIcon='<svg width="16" height="16" viewBox="0 0 16 16" fill="none" stroke="#f0c9cc" stroke-width="1.5" aria-hidden="true"><circle cx="8" cy="8" r="6.5"/><path d="M8 4.5v4.2M8 11.2v.3"/></svg>';
+function overdueBanner(list){
+  const od=overdueList(list);if(!od.length)return '';
+  const sum=od.reduce((a,o)=>a+(+o.x.amount||0),0);
+  return `<section class="alert glass reveal"><div class="alert-h">${warnIcon}Просрочено оплат: ${od.length} на ${money(sum)}</div>
+    <div class="alert-list">${od.slice(0,8).map(o=>`<span class="alert-item" data-open="${o.p.id}" role="button" tabindex="0"><b>${esc(o.p.client||'Без названия')}</b> ${money(o.x.amount)} · с ${fmtDate(o.x.date)}</span>`).join('')}</div></section>`;
+}
+function fmtShort(v){
+  const fx=S.cur==='usd'?{r:S.rate,sym:'$'}:S.cur==='eur'&&S.rateEur?{r:S.rateEur,sym:'€'}:null;
+  const d=fx?v/fx.r:v,ad=Math.abs(d);
+  const n=ad>=1e6?(d/1e6).toLocaleString('ru-RU',{maximumFractionDigits:1})+' млн':ad>=1e3?(d/1e3).toLocaleString('ru-RU',{maximumFractionDigits:ad>=1e4?0:1})+' тыс':Math.round(d).toLocaleString('ru-RU');
+  return fx?fx.sym+n:n+' ₽';
+}
+function monthData(){
+  const now=new Date(),n=innerWidth<640?6:12,keys=[];
+  for(let i=n-1;i>=0;i--){const d=new Date(now.getFullYear(),now.getMonth()-i,1);keys.push(d.getFullYear()+'-'+String(d.getMonth()+1).padStart(2,'0'));}
+  const m=Object.fromEntries(keys.map(k=>[k,{inc:0,exp:0}]));
+  S.projects.forEach(p=>{
+    (p.payments||[]).forEach(x=>{if(x.status==='paid'&&x.date&&m[x.date.slice(0,7)])m[x.date.slice(0,7)].inc+=+x.amount||0;});
+    (p.expenses||[]).forEach(x=>{if(x.date&&m[x.date.slice(0,7)])m[x.date.slice(0,7)].exp+=+x.amount||0;});
+  });
+  (S.general.items||[]).forEach(x=>{if(x.date&&m[x.date.slice(0,7)])m[x.date.slice(0,7)].exp+=+x.amount||0;});
+  return keys.map(k=>({k,...m[k]}));
+}
+function monthChart(){
+  const data=monthData();
+  const max=Math.max(...data.map(d=>Math.max(d.inc,d.exp)));
+  if(!max)return '<p class="note" style="padding:4px 0">Здесь появится график, когда у оплат и расходов будут даты.</p>';
+  const W=Math.max(300,Math.min(1150,innerWidth-110)),H=230,L=56,R=8,T=12,B=28;
+  const step=(W-L-R)/data.length,bw=Math.max(5,Math.min(22,step*0.3));
+  const mag=Math.pow(10,Math.floor(Math.log10(max))),nice=[1,2,2.5,5,10].map(x=>x*mag).find(x=>x*3>=max)||max;
+  const top=nice*3,y=v=>T+(H-T-B)*(1-v/top);
+  const bar=(x,v,c)=>{if(!v)return '';const h=Math.max(2,(H-B)-y(v)),r=Math.min(4,bw/2,h);const yy=H-B-h;
+    return `<path d="M${x},${H-B}V${yy+r}Q${x},${yy} ${x+r},${yy}H${x+bw-r}Q${x+bw},${yy} ${x+bw},${yy+r}V${H-B}Z" fill="${c}"/>`;};
+  let g='';
+  for(let i=0;i<=3;i++){const v=nice*i,yy=y(v);g+=`<line x1="${L}" x2="${W-R}" y1="${yy}" y2="${yy}" stroke="rgba(236,232,225,${i?0.07:0.18})"/><text x="${L-8}" y="${yy+4}" text-anchor="end" font-size="11" fill="#8d8982">${esc(fmtShort(v))}</text>`;}
+  data.forEach((d,i)=>{
+    const cx=L+step*i+step/2,mo=+d.k.slice(5)-1;
+    g+=bar(cx-bw-1,d.inc,'#c9a75f')+bar(cx+1,d.exp,'#6e7380');
+    g+=`<text x="${cx}" y="${H-8}" text-anchor="middle" font-size="11" fill="#8d8982">${MONTHS[mo]}${mo===0||i===0?" ’"+d.k.slice(2,4):''}</text>`;
+    g+=`<rect class="hit" data-i="${i}" x="${L+step*i}" y="${T}" width="${step}" height="${H-T-B}" fill="transparent"/>`;
+  });
+  return `<div class="legend"><span><i style="background:#c9a75f"></i>Пришло</span><span><i style="background:#6e7380"></i>Потрачено</span></div>
+  <div class="chart-wrap" id="chartWrap"><svg viewBox="0 0 ${W} ${H}" role="img" aria-label="Пришло и потрачено по месяцам" data-w="${W}" data-step="${step}" data-l="${L}">${g}</svg><div class="tip" id="tip" style="opacity:0"></div></div>`;
+}
+function settlePanel(){
+  const st=settle(),t=S.general.transfers||[];
+  const amt=Math.abs(st.diff);
+  const res=amt<1?`<div class="big"><small>Итог</small>Вы в расчёте</div>`
+    :`<div class="big"><small>${st.diff>0?'Паша переводит Саше':'Саша переводит Паше'}</small><span class="gold-text">${money(amt)}</span></div>`;
+  const btn=amt<1||S.readOnly?'':S.settleConfirm
+    ?`<div style="display:flex;gap:8px;flex-wrap:wrap"><button class="btn btn-gold btn-sm" id="stYes">Да, перевод сделан</button><button class="btn btn-ghost btn-sm" id="stNo">Отмена</button></div>`
+    :`<button class="btn btn-ghost btn-sm" id="stDo">Отметить перевод</button>`;
+  const col=(k,n)=>`<div class="settle-p"><div class="who-h"><span class="ava sm ${k==='sasha'?'s':''}">${n[0]}</span>${n}</div>
+    <div class="row2"><span>Доля прибыли</span><b>${money(st.ent[k])}</b></div>
+    <div class="row2"><span>На руках</span><b>${money(st.held[k])}</b></div></div>`;
+  const hist=t.slice(-3).reverse().map(x=>`<div><span>${fmtDate(x.date)} · ${ownerName(x.from)} → ${ownerName(x.to)}</span><b class="num">${money(x.amount)}</b></div>`).join('');
+  return `<div class="settle">
+    <div class="settle-cols">${col('pasha','Паша')}${col('sasha','Саша')}</div>
+    <div class="settle-res">${res}${btn}</div>
+    ${hist?`<div class="settle-hist"><span class="label">Последние переводы</span>${hist}</div>`:''}
+    <p class="note" style="padding:0">Свои проекты целиком у того, кто ведёт. Общие делятся по доле из карточки, по умолчанию пополам. Общие расходы делятся пополам. «На руках» значит, кому пришли деньги минус то, что он оплатил сам.</p>
+  </div>`;
+}
+function generalView(){
+  const items=[...(S.general.items||[])].sort((a,b)=>(b.date||'').localeCompare(a.date||''));
+  const mk=today().slice(0,7),month=items.filter(x=>(x.date||'').startsWith(mk)).reduce((a,x)=>a+(+x.amount||0),0);
+  const byCat={};items.forEach(x=>{byCat[x.cat]=(byCat[x.cat]||0)+(+x.amount||0);});
+  const topCat=Object.entries(byCat).sort((a,b)=>b[1]-a[1])[0];
+  const G=S.genDraft||(S.genDraft={cat:'Подписки',amount:'',date:today(),by:S.user});
+  const rows=items.map(x=>`<div class="gen-row"><span class="date">${x.date?fmtDate(x.date):'без даты'}</span>
+    <span class="t"><b>${esc(x.cat)}</b></span><span class="ava sm ${x.by==='sasha'?'s':''}" title="Платил ${esc(ownerName(x.by))}">${esc((ownerName(x.by)||'·')[0])}</span>
+    <span class="amt num">${money(x.amount)}</span>
+    ${S.readOnly?'<span></span>':`<button class="x" type="button" data-gdel="${esc(x.id)}" aria-label="Удалить расход">${xIcon}</button>`}</div>`).join('');
+  return `
+  <div class="head reveal"><div><h1>Общие <em class="gold-text">расходы</em></h1><p>Подписки, реклама, сервисы: всё, что не относится к одному клиенту</p></div></div>
+  ${dbNote()}
+  <section class="kpis" style="grid-template-columns:repeat(3,minmax(0,1fr))">
+    <div class="kpi glass main"><span class="label">Этот месяц</span><span class="v num">${money(month)}</span><span class="h">${MONTHS[new Date().getMonth()]}</span></div>
+    <div class="kpi glass"><span class="label">Всего</span><span class="v num">${money(genTotal())}</span><span class="h">${items.length} ${plural(items.length,'запись','записи','записей')}</span></div>
+    <div class="kpi glass"><span class="label">Больше всего</span><span class="v">${topCat?esc(topCat[0]):'—'}</span><span class="h">${topCat?money(topCat[1]):'пока пусто'}</span></div>
+  </section>
+  ${S.readOnly?'':`<section class="panel glass"><h2>Добавить расход</h2>
+    <div class="gen-form">
+      ${ddBtn('g-cat',GEN_CATS.map(n=>({id:n,name:n})),G.cat,'data-gdd="1" aria-label="На что потратили"','')}
+      <label class="rub"><input class="inp num" id="g-amount" type="number" inputmode="decimal" min="0" placeholder="Сумма" value="${esc(G.amount)}" aria-label="Сумма"></label>
+      <input class="inp" id="g-date" type="date" value="${esc(G.date)}" aria-label="Дата">
+      <div class="seg who" role="group" aria-label="Кто платил">${['pasha','sasha'].map(k=>`<button type="button" data-gby="${k}" aria-pressed="${G.by===k}" title="Платил ${ownerName(k)}">${ownerName(k)}</button>`).join('')}</div>
+      <button class="btn btn-gold" id="g-add">Добавить</button>
+    </div></section>`}
+  <section class="panel glass"><h2>История <small>${items.length?money(genTotal()):''}</small></h2>${rows?`<div>${rows}</div>`:'<p class="note" style="padding:0">Пока ни одного общего расхода. Добавь подписку или рекламу через форму выше.</p>'}</section>
+  <section class="panel glass"><h2>Расчёт между нами</h2>${settlePanel()}</section>`;
+}
+async function saveGeneral(next,okMsg){
+  if(!db){toast('База не подключена');return false;}
+  try{await db.doc('settings/general').set(next);S.general=next;render();if(okMsg)toast(okMsg);return true;}
+  catch(e){toast(e&&e.code==='permission-denied'?'База не пускает этот аккаунт':'Не сохранилось, попробуй ещё раз');return false;}
+}
+let xlsxLoading=null;
+function loadXlsx(){
+  if(window.XLSX)return Promise.resolve();
+  if(!xlsxLoading)xlsxLoading=new Promise((ok,bad)=>{const sc=document.createElement('script');sc.src='https://cdnjs.cloudflare.com/ajax/libs/xlsx/0.18.5/xlsx.full.min.js';sc.onload=ok;sc.onerror=()=>{xlsxLoading=null;bad();};document.head.appendChild(sc);});
+  return xlsxLoading;
+}
+async function exportXlsx(btn){
+  btn.disabled=true;const old=btn.innerHTML;btn.textContent='Готовлю файл…';
+  try{
+    await loadXlsx();
+    const P=S.projects,X=XLSX.utils,wb=X.book_new();
+    const dn=id=>dirOf(id).name,sn=id=>stageOf(id).name;
+    const projects=P.map(p=>{const c=calc(p);return {'Направление':dn(p.dir),'Клиент':p.client,'Контакт':p.contact,'Услуга':p.service,'Этап':sn(p.stage),'Ведёт':ownerName(p.owner),'Доля Паши, %':Math.round(shareOf(p)*100),'Договор, ₽':c.total,'Получено, ₽':c.paid,'Осталось, ₽':c.left,'Расходы, ₽':c.exp,'Прибыль, ₽':c.profit,'Дедлайн':p.deadline,'Что сделано':(p.tasks||[]).map(t=>(t.done?'[x] ':'[ ] ')+t.text).join('; '),'Заметки':p.notes};});
+    const pays=[],exps=[];
+    P.forEach(p=>{(p.payments||[]).forEach(x=>pays.push({'Клиент':p.client,'Направление':dn(p.dir),'Сумма, ₽':+x.amount||0,'Дата':x.date,'Статус':x.status==='paid'?'Пришло':'Ждём','Кому':ownerName(x.to||defWho(p))}));
+      (p.expenses||[]).forEach(x=>exps.push({'Клиент':p.client,'Направление':dn(p.dir),'Категория':x.cat,'Сумма, ₽':+x.amount||0,'Дата':x.date,'Платил':ownerName(x.by||defWho(p))}));});
+    const gen=(S.general.items||[]).map(x=>({'Категория':x.cat,'Сумма, ₽':+x.amount||0,'Дата':x.date,'Платил':ownerName(x.by)}));
+    const tr=(S.general.transfers||[]).map(x=>({'Дата':x.date,'От':ownerName(x.from),'Кому':ownerName(x.to),'Сумма, ₽':+x.amount||0}));
+    [['Проекты',projects],['Оплаты',pays],['Расходы проектов',exps],['Общие расходы',gen],['Переводы',tr]].forEach(([n,rows])=>{
+      const ws=rows.length?X.json_to_sheet(rows):X.aoa_to_sheet([['Пусто']]);
+      if(rows.length)ws['!cols']=Object.keys(rows[0]).map(k=>({wch:Math.min(40,Math.max(k.length+2,...rows.map(r=>String(r[k]??'').length+2)))}));
+      X.book_append_sheet(wb,ws,n);
+    });
+    XLSX.writeFile(wb,'kazna-germesa-'+today()+'.xlsx');
+    toast('Файл скачан');
+  }catch(e){toast('Не получилось собрать файл, проверь интернет');}
+  btn.disabled=false;btn.innerHTML=old;
+}
+function bindExtras(){
+  const m=$('#main');
+  m.querySelectorAll('.alert-item').forEach(el=>el.onkeydown=e=>{if(e.key==='Enter')openDrawer(el.dataset.open);});
+  const xb=$('#xlsx');if(xb)xb.onclick=()=>exportXlsx(xb);
+  const cw=$('#chartWrap');
+  if(cw){const svg=cw.querySelector('svg'),tip=$('#tip'),data=monthData();
+    cw.querySelectorAll('.hit').forEach(h=>{
+      const show=()=>{const i=+h.dataset.i,d=data[i];if(!d)return;
+        const sc=svg.getBoundingClientRect().width/(+svg.dataset.w);
+        const x=(+svg.dataset.l+(+svg.dataset.step)*(i+.5))*sc;
+        const [y,mo]=d.k.split('-');
+        tip.innerHTML=`<b>${MONTHS[+mo-1]} ${y}</b><div><span>Пришло</span><span>${money(d.inc)}</span></div><div><span>Потрачено</span><span>${money(d.exp)}</span></div><div><span>Итого</span><span>${money(d.inc-d.exp)}</span></div>`;
+        tip.style.left=Math.min(Math.max(x,90),cw.clientWidth-90)+'px';tip.style.top='6px';tip.style.opacity=1;};
+      h.addEventListener('pointerenter',show);h.addEventListener('pointerdown',show);
+      h.addEventListener('pointerleave',()=>tip.style.opacity=0);
+    });}
+  const sd=$('#stDo');if(sd)sd.onclick=()=>{S.settleConfirm=true;render();};
+  const sn=$('#stNo');if(sn)sn.onclick=()=>{S.settleConfirm=false;render();};
+  const sy=$('#stYes');if(sy)sy.onclick=async()=>{
+    const st=settle(),amt=Math.abs(st.diff);if(amt<1)return;
+    sy.disabled=true;
+    const tr={id:uid(),from:st.diff>0?'pasha':'sasha',to:st.diff>0?'sasha':'pasha',amount:amt,date:today(),by:S.user,at:Date.now()};
+    const ok=await saveGeneral({items:S.general.items||[],transfers:[...(S.general.transfers||[]),tr]},'Перевод отмечен');
+    S.settleConfirm=false;if(!ok)render();
+  };
+  if(S.tab==='general'&&!S.readOnly){
+    const G=S.genDraft;
+    const cat=m.querySelector('[data-gdd]');if(cat)cat.onclick=()=>openMenu(cat,GEN_CATS.map(n=>({id:n,name:n})),v=>{G.cat=v;});
+    const am=$('#g-amount');if(am)am.oninput=()=>{G.amount=am.value;};
+    const dt=$('#g-date');if(dt)dt.oninput=()=>{G.date=dt.value;};
+    m.querySelectorAll('[data-gby]').forEach(b=>b.onclick=()=>{G.by=b.dataset.gby;m.querySelectorAll('[data-gby]').forEach(x=>x.setAttribute('aria-pressed',String(x===b)));});
+    const add=$('#g-add');if(add)add.onclick=async()=>{
+      const a=+G.amount;if(!(a>0)){toast('Впиши сумму');am&&am.focus();return;}
+      add.disabled=true;
+      const it={id:uid(),cat:G.cat,amount:a,date:G.date||today(),by:G.by==='sasha'?'sasha':'pasha',at:Date.now(),addedBy:S.user};
+      const ok=await saveGeneral({items:[...(S.general.items||[]),it],transfers:S.general.transfers||[]},'Расход добавлен');
+      if(ok){S.genDraft={cat:G.cat,amount:'',date:today(),by:G.by};render();}else add.disabled=false;
+    };
+    m.querySelectorAll('[data-gdel]').forEach(b=>b.onclick=()=>{
+      if(b.dataset.armed){saveGeneral({items:(S.general.items||[]).filter(x=>x.id!==b.dataset.gdel),transfers:S.general.transfers||[]},'Расход удалён');return;}
+      b.dataset.armed='1';b.style.color='var(--wine)';b.style.background='var(--wine-bg)';b.title='Нажми ещё раз, чтобы удалить';toast('Нажми крестик ещё раз, чтобы удалить');
+      setTimeout(()=>{if(b.isConnected){delete b.dataset.armed;b.style.color='';b.style.background='';}},3000);
+    });
+  }
+}
+let rsT=null;addEventListener('resize',()=>{clearTimeout(rsT);rsT=setTimeout(()=>{if(S.user&&S.tab==='overview'&&!menuEl)render();},250);});
 
 function emptyState(dir){
   return `<section class="glass empty reveal">
@@ -746,6 +1008,7 @@ function dirView(id){
   <div class="head reveal"><div><h1><span class="gold-text" style="font-style:italic">${d.n}</span> ${esc(d.name)}</h1><p>${esc(d.hint)}</p></div>
   ${S.readOnly?'':`<button class="btn btn-gold" data-new="${id}">+ Новый проект</button>`}</div>
   ${dbNote()}
+  ${overdueBanner(all)}
   ${kpiBlock(a)}
   ${all.length?`<div class="toolbar"><div class="chips">${chips}</div>
     <label class="search"><svg width="14" height="14" viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-width="1.5" aria-hidden="true"><circle cx="7" cy="7" r="5"/><path d="M11 11l3.5 3.5"/></svg>
@@ -801,12 +1064,14 @@ function drawDrawer(){
     <label class="rub"><input class="inp num" type="number" inputmode="decimal" min="0" placeholder="Сумма" data-l="payments" data-i="${i}" data-f="amount" value="${esc(x.amount)}" aria-label="Сумма платежа" ${dis}></label>
     <input class="inp" type="date" data-l="payments" data-i="${i}" data-f="date" value="${esc(x.date)}" aria-label="Дата" ${dis}>
     <div class="seg" role="group" aria-label="Статус"><button type="button" data-ps="${i}" data-v="paid" aria-pressed="${x.status==='paid'}" ${dis}>Пришло</button><button type="button" data-ps="${i}" data-v="planned" aria-pressed="${x.status!=='paid'}" ${dis}>Ждём</button></div>
+    ${whoSeg('payments',i,x.to||defWho(D),'Кому пришло',dis)}
     ${ro?'<span></span>':`<button class="x" type="button" data-rm="payments" data-i="${i}" aria-label="Удалить платёж">${xIcon}</button>`}
   </div>`).join('');
   const exps=D.expenses.map((x,i)=>`<div class="item e">
     ${ddBtn('exp-cat-'+i,catOpts,x.cat,`data-dl="expenses" data-i="${i}" data-f="cat" aria-label="На что потратили"`,dis)}
     <label class="rub"><input class="inp num" type="number" inputmode="decimal" min="0" placeholder="Сумма" data-l="expenses" data-i="${i}" data-f="amount" value="${esc(x.amount)}" aria-label="Сумма расхода" ${dis}></label>
     <input class="inp" type="date" data-l="expenses" data-i="${i}" data-f="date" value="${esc(x.date)}" aria-label="Дата" ${dis}>
+    ${whoSeg('expenses',i,x.by||defWho(D),'Кто платил',dis)}
     ${ro?'<span></span>':`<button class="x" type="button" data-rm="expenses" data-i="${i}" aria-label="Удалить расход">${xIcon}</button>`}
   </div>`).join('');
   const tasks=D.tasks.map((x,i)=>`<div class="item t ${x.done?'done':''}">
@@ -836,6 +1101,8 @@ function drawDrawer(){
         <div class="field"><label for="f-total">Сумма договора</label><label class="rub"><input class="inp num" id="f-total" type="number" inputmode="decimal" min="0" data-k="total" value="${esc(D.total)}" placeholder="0" ${dis}></label></div>
         <div class="field"><label for="f-deadline">Дедлайн</label><input class="inp" id="f-deadline" type="date" data-k="deadline" value="${esc(D.deadline)}" ${dis}></div>
         <div class="field full"><label>Ведёт</label><div class="seg wide" role="group" aria-label="Кто ведёт">${OWNERS.map(o=>`<button type="button" data-owner="${o.id}" aria-pressed="${(D.owner||S.user)===o.id}" ${dis}>${o.name}</button>`).join('')}</div></div>
+        ${D.owner==='both'?`<div class="field"><label for="f-share">Доля Паши в прибыли</label><label class="rub pct"><input class="inp num" id="f-share" type="number" inputmode="numeric" min="0" max="100" data-k="share" value="${esc(D.share==null||D.share===''?50:D.share)}" ${dis}></label></div>
+        <div class="field" style="align-self:end"><span class="share-hint" id="shareHint">Саше ${100-Math.min(Math.max(+(D.share==null||D.share===''?50:D.share)||0,0),100)}%</span></div>`:''}
       </div></section>
     <section class="sec"><div class="sec-h"><h3><i>0.2</i>Оплаты</h3>${ro?'':'<button class="btn btn-ghost btn-sm" type="button" data-add="payments">+ Платёж</button>'}</div>
       <div class="items">${pays||'<p class="note" style="padding:0">Добавь предоплату со статусом «Пришло», а будущие платежи с датой и статусом «Ждём».</p>'}</div></section>
@@ -851,6 +1118,9 @@ function drawDrawer(){
     :`<span class="sp">${upd}</span>${S.editId&&!ro?`<button class="btn btn-ghost btn-sm" id="del">Удалить</button>`:''}${ro?'':`<button class="btn btn-gold" id="save">Сохранить</button>`}`}
   </div>`;
   bindDrawer();
+}
+function whoSeg(list,i,val,label,dis){
+  return `<div class="seg who" role="group" aria-label="${label}">${['pasha','sasha'].map(k=>`<button type="button" data-who="${list}" data-i="${i}" data-v="${k}" aria-pressed="${val===k}" title="${label}: ${ownerName(k)}" ${dis}><span class="sh">${ownerName(k)[0]}</span><span class="fl">${ownerName(k)}</span></button>`).join('')}</div>`;
 }
 const xIcon='<svg width="12" height="12" viewBox="0 0 12 12" stroke="currentColor" stroke-width="1.5"><path d="M2 2l8 8M10 2L2 10"/></svg>';
 
@@ -880,13 +1150,20 @@ function bindDrawer(){
     openMenu(b,EXP_CATS.map(n=>({id:n,name:n})),v=>{D[b.dataset.dl][+b.dataset.i][b.dataset.f]=v;});
   });
   dr.querySelectorAll('[data-owner]').forEach(b=>b.onclick=()=>{
-    D.owner=b.dataset.owner;
-    dr.querySelectorAll('[data-owner]').forEach(x=>x.setAttribute('aria-pressed',String(x===b)));
+    const was=D.owner;D.owner=b.dataset.owner;
+    if((was==='both')!==(D.owner==='both'))redraw();
+    else dr.querySelectorAll('[data-owner]').forEach(x=>x.setAttribute('aria-pressed',String(x===b)));
   });
+  dr.querySelectorAll('[data-who]').forEach(b=>b.onclick=()=>{
+    const it=D[b.dataset.who][+b.dataset.i];it[b.dataset.who==='payments'?'to':'by']=b.dataset.v;
+    b.parentElement.querySelectorAll('button').forEach(x=>x.setAttribute('aria-pressed',String(x===b)));
+  });
+  const fs=$('#f-share');if(fs)fs.addEventListener('input',()=>{const v=Math.min(Math.max(+fs.value||0,0),100);$('#shareHint').textContent='Саше '+(100-v)+'%';});
   dr.querySelectorAll('[data-add]').forEach(b=>b.onclick=()=>{
     const k=b.dataset.add;
-    if(k==='payments')D.payments.push({id:uid(),amount:'',date:today(),status:D.payments.length?'planned':'paid'});
-    if(k==='expenses')D.expenses.push({id:uid(),cat:'Монтаж',amount:'',date:today()});
+    const w=D.owner==='both'?S.user:defWho(D);
+    if(k==='payments')D.payments.push({id:uid(),amount:'',date:today(),status:D.payments.length?'planned':'paid',to:w});
+    if(k==='expenses')D.expenses.push({id:uid(),cat:'Монтаж',amount:'',date:today(),by:w});
     if(k==='tasks')D.tasks.push({id:uid(),text:'',done:false});
     redraw(()=>{const items=$('#drawer').querySelectorAll(`[data-l="${k}"]`);const last=[...items].filter(e=>e.dataset.i==String(D[k].length-1))[0];last&&last.focus();});
   });
@@ -912,8 +1189,9 @@ async function save(){
   const clean={
     dir:D.dir,client:String(D.client).trim(),contact:D.contact||'',service:D.service||'',stage:D.stage,
     total:+D.total||0,deadline:D.deadline||'',owner:D.owner||S.user,notes:D.notes||'',
-    payments:D.payments.filter(x=>+x.amount).map(x=>({id:x.id||uid(),amount:+x.amount,date:x.date||'',status:x.status==='paid'?'paid':'planned'})),
-    expenses:D.expenses.filter(x=>+x.amount).map(x=>({id:x.id||uid(),cat:x.cat||'Другое',amount:+x.amount,date:x.date||''})),
+    share:D.owner==='both'?Math.min(Math.max(D.share==null||D.share===''?50:+D.share||0,0),100):null,
+    payments:D.payments.filter(x=>+x.amount).map(x=>({id:x.id||uid(),amount:+x.amount,date:x.date||'',status:x.status==='paid'?'paid':'planned',to:x.to||defWho(D)})),
+    expenses:D.expenses.filter(x=>+x.amount).map(x=>({id:x.id||uid(),cat:x.cat||'Другое',amount:+x.amount,date:x.date||'',by:x.by||defWho(D)})),
     tasks:D.tasks.filter(x=>String(x.text||'').trim()).map(x=>({id:x.id||uid(),text:String(x.text).trim(),done:!!x.done})),
     createdAt:D.createdAt||Date.now(),createdBy:D.createdBy||S.user,updatedAt:Date.now(),updatedBy:S.user
   };
@@ -938,7 +1216,7 @@ function toast(m){const t=$('#toast');t.textContent=m;t.classList.add('on');clea
 /* ===== Старт ===== */
 (function(){
   const tb=load('kazna_tab');
-  if(tb&&(tb==='overview'||DIRS.some(d=>d.id===tb)))S.tab=tb;
+  if(tb&&(tb==='overview'||tb==='general'||DIRS.some(d=>d.id===tb)))S.tab=tb;
   const lc=load('kazna_cur');if(lc==='usd'||lc==='eur')S.cur=lc;
   fbAuth.onAuthStateChanged(fu=>{
     const l=fu&&fu.email?fu.email.split('@')[0]:null;
