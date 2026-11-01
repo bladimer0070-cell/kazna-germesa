@@ -421,7 +421,7 @@ const STAGES=[
 ];
 const EXP_CATS=['Монтаж','Сценарии','Студия','Съёмка','Дизайн','Реклама','Сервисы','Другое'];
 
-const S={cur:'rub',rate:80.56,rateInfo:null,curOpen:false,user:null,projects:[],loaded:false,dbState:'wait',tab:'overview',stage:'all',q:'',draft:null,editId:null,confirmDel:false,readOnly:false};
+const S={cur:'rub',rate:80.56,rateEur:null,rateInfo:null,curOpen:false,user:null,projects:[],loaded:false,dbState:'wait',tab:'overview',stage:'all',q:'',draft:null,editId:null,confirmDel:false,readOnly:false};
 let db=null,unsub=null,unsubRate=null,loadTimer=null;
 
 const $=s=>document.querySelector(s);
@@ -429,7 +429,8 @@ const esc=v=>String(v??'').replace(/[&<>"']/g,c=>({'&':'&amp;','<':'&lt;','>':'&
 const nf=new Intl.NumberFormat('ru-RU');
 const money=v=>{
   v=+v||0;
-  if(S.cur==='usd'){const d=v/(S.rate||1);const s=new Intl.NumberFormat('ru-RU',{maximumFractionDigits:Math.abs(d)<100&&d%1?2:0}).format(d);return (d<0?'−$':'$')+s.replace('-','').replace('−','');}
+  const fx=S.cur==='usd'?{r:S.rate,sym:'$'}:S.cur==='eur'&&S.rateEur?{r:S.rateEur,sym:'€'}:null;
+  if(fx){const d=v/(fx.r||1);const s=new Intl.NumberFormat('ru-RU',{maximumFractionDigits:Math.abs(d)<100&&d%1?2:0}).format(Math.abs(d));return (d<0?'−':'')+fx.sym+s;}
   return nf.format(Math.round(v))+' ₽';
 };
 const OWNERS=[{id:'pasha',name:'Паша'},{id:'sasha',name:'Саша'},{id:'both',name:'Вместе'}];
@@ -536,7 +537,7 @@ async function connect(){
     render();
   },err=>{clearTimeout(loadTimer);S.dbState=err.code==='permission-denied'?'denied':'err';render();});
   unsubRate=db.doc('settings/main').onSnapshot(s=>{
-    if(s.exists){S.rateInfo=s.data();const r=+S.rateInfo.usdRub;if(r>0)S.rate=r;}
+    if(s.exists){S.rateInfo=s.data();const r=+S.rateInfo.usdRub,e=+S.rateInfo.eurRub;if(r>0)S.rate=r;if(e>0)S.rateEur=e;}
     render();
   },()=>{});
 }
@@ -547,13 +548,14 @@ async function autoRate(){
     const r=await fetch('https://www.cbr-xml-daily.ru/daily_json.js',{cache:'no-store'});
     if(!r.ok)return;
     const j=await r.json();
-    const v=j&&j.Valute&&j.Valute.USD&&+j.Valute.USD.Value;
-    if(!(v>0))return;
-    const rate=Math.round(v*100)/100;
-    S.rate=rate;render();
+    const V=j&&j.Valute||{};
+    const u=+(V.USD&&V.USD.Value),e=+(V.EUR&&V.EUR.Value);
+    if(!(u>0)||!(e>0))return;
+    const rate=Math.round(u*100)/100,rateE=Math.round(e*100)/100;
+    S.rate=rate;S.rateEur=rateE;render();
     const ri=S.rateInfo||{};
-    if(db&&(ri.cbrDate!==j.Date||ri.usdRub!==rate||ri.updatedBy!=='cbr')){
-      await db.doc('settings/main').set({usdRub:rate,cbrDate:j.Date,updatedAt:Date.now(),updatedBy:'cbr'});
+    if(db&&(ri.cbrDate!==j.Date||ri.usdRub!==rate||ri.eurRub!==rateE||ri.updatedBy!=='cbr')){
+      await db.doc('settings/main').set({usdRub:rate,eurRub:rateE,cbrDate:j.Date,updatedAt:Date.now(),updatedBy:'cbr'});
     }
   }catch(e){/* нет связи с ЦБ: остаётся последний сохранённый курс */}
 }
@@ -627,30 +629,36 @@ function kpiBlock(a){
 
 function renderCur(){
   const el=$('#cur');if(!el)return;
-  const rateTxt=new Intl.NumberFormat('ru-RU',{maximumFractionDigits:2}).format(S.rate);
+  const f=n=>n?new Intl.NumberFormat('ru-RU',{maximumFractionDigits:2}).format(n):'—';
   const ri=S.rateInfo;
-  const keepVal=S.curOpen&&$('#rateIn')?$('#rateIn').value:rateTxt.replace(/\s/g,'');
+  const shown=S.cur==='eur'?S.rateEur:S.rate;
+  const kU=S.curOpen&&$('#rateU')?$('#rateU').value:f(S.rate).replace(/\s/g,'');
+  const kE=S.curOpen&&$('#rateE')?$('#rateE').value:(S.rateEur?f(S.rateEur).replace(/\s/g,''):'');
+  const dis=S.readOnly?'disabled':'';
   el.innerHTML=`<div class="seg" role="group" aria-label="Валюта">
       <button type="button" data-cur="rub" aria-pressed="${S.cur==='rub'}">₽</button>
       <button type="button" data-cur="usd" aria-pressed="${S.cur==='usd'}">$</button>
-      <button type="button" id="rateBtn" aria-expanded="${S.curOpen}" title="Курс доллара" class="num" style="font-size:11.5px">${rateTxt}</button>
+      <button type="button" data-cur="eur" aria-pressed="${S.cur==='eur'}">€</button>
+      <button type="button" id="rateBtn" aria-expanded="${S.curOpen}" title="Курсы валют" class="num" style="font-size:11.5px">${S.cur==='eur'?'€ ':'$ '}${f(shown)}</button>
     </div>
     ${S.curOpen?`<div class="cur-pop glass">
-      <span class="label">Курс доллара</span>
-      <div style="display:flex;gap:8px;align-items:center"><span style="white-space:nowrap">1 $ =</span><label class="rub" style="flex:1"><input class="inp num" id="rateIn" inputmode="decimal" value="${esc(keepVal)}" aria-label="Рублей за доллар" ${S.readOnly?'disabled':''}></label></div>
+      <span class="label">Курсы валют</span>
+      <div style="display:flex;gap:8px;align-items:center"><span style="white-space:nowrap;width:34px">1 $ =</span><label class="rub" style="flex:1"><input class="inp num" id="rateU" inputmode="decimal" value="${esc(kU)}" aria-label="Рублей за доллар" ${dis}></label></div>
+      <div style="display:flex;gap:8px;align-items:center"><span style="white-space:nowrap;width:34px">1 € =</span><label class="rub" style="flex:1"><input class="inp num" id="rateE" inputmode="decimal" value="${esc(kE)}" aria-label="Рублей за евро" ${dis}></label></div>
       ${S.readOnly?'':'<button class="btn btn-gold btn-sm" id="rateSave">Поставить вручную</button>'}
-      <p>${ri&&ri.updatedBy==='cbr'?`Курс ЦБ РФ на ${esc(fmtDate(String(ri.cbrDate||'').slice(0,10)))}, подтягивается сам при входе.`:ri&&ri.updatedAt?`Поставил вручную ${esc(ownerName(ri.updatedBy)||'кто-то')} · ${ago(ri.updatedAt)}. При следующем входе снова подтянется курс ЦБ.`:''} Суммы вводятся в рублях, доллары считаются по этому курсу.</p>
+      <p>${ri&&ri.updatedBy==='cbr'?`Курсы ЦБ РФ на ${esc(fmtDate(String(ri.cbrDate||'').slice(0,10)))}, подтягиваются сами при входе.`:ri&&ri.updatedAt?`Поставил вручную ${esc(ownerName(ri.updatedBy)||'кто-то')} · ${ago(ri.updatedAt)}. При следующем входе снова подтянутся курсы ЦБ.`:''} Суммы вводятся в рублях, остальное пересчитывается.</p>
     </div>`:''}`;
   el.querySelectorAll('[data-cur]').forEach(b=>b.onclick=()=>{S.cur=b.dataset.cur;store('kazna_cur',S.cur);render();if(S.draft)redraw();});
-  $('#rateBtn').onclick=()=>{S.curOpen=!S.curOpen;renderCur();if(S.curOpen)$('#rateIn')&&$('#rateIn').select();};
+  $('#rateBtn').onclick=()=>{S.curOpen=!S.curOpen;renderCur();if(S.curOpen)$('#rateU')&&$('#rateU').select();};
   const rs=$('#rateSave');
   if(rs)rs.onclick=async()=>{
-    const v=parseFloat(String($('#rateIn').value).replace(',','.').replace(/\s/g,''));
-    if(!(v>0)){toast('Впиши курс числом, например 80,56');return;}
+    const num=id=>parseFloat(String($(id).value).replace(',','.').replace(/\s/g,''));
+    const u=num('#rateU'),e=num('#rateE');
+    if(!(u>0)||!(e>0)){toast('Впиши оба курса числом, например 80,56');return;}
     if(!db){toast('База не подключена');return;}
     rs.disabled=true;
-    try{await db.doc('settings/main').set({usdRub:v,updatedAt:Date.now(),updatedBy:S.user});S.rate=v;S.curOpen=false;toast('Курс сохранён');render();if(S.draft)redraw();}
-    catch(e){rs.disabled=false;toast('Курс не сохранился, попробуй ещё раз');}
+    try{await db.doc('settings/main').set({usdRub:u,eurRub:e,updatedAt:Date.now(),updatedBy:S.user});S.rate=u;S.rateEur=e;S.curOpen=false;toast('Курсы сохранены');render();if(S.draft)redraw();}
+    catch(err){rs.disabled=false;toast('Курсы не сохранились, попробуй ещё раз');}
   };
 }
 document.addEventListener('pointerdown',e=>{if(S.curOpen&&!e.target.closest('#cur')){S.curOpen=false;renderCur();}});
@@ -931,7 +939,7 @@ function toast(m){const t=$('#toast');t.textContent=m;t.classList.add('on');clea
 (function(){
   const tb=load('kazna_tab');
   if(tb&&(tb==='overview'||DIRS.some(d=>d.id===tb)))S.tab=tb;
-  if(load('kazna_cur')==='usd')S.cur='usd';
+  const lc=load('kazna_cur');if(lc==='usd'||lc==='eur')S.cur=lc;
   fbAuth.onAuthStateChanged(fu=>{
     const l=fu&&fu.email?fu.email.split('@')[0]:null;
     if(l&&USERS[l]){if(S.user!==l){stopApp();S.user=l;startApp();}}
