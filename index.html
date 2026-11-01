@@ -542,7 +542,24 @@ async function connect(){
 }
 
 /* ===== Отрисовка ===== */
-function startApp(){renderShell();render();if(!unsub)connect();runImport();}
+async function autoRate(){
+  try{
+    const r=await fetch('https://www.cbr-xml-daily.ru/daily_json.js',{cache:'no-store'});
+    if(!r.ok)return;
+    const j=await r.json();
+    const v=j&&j.Valute&&j.Valute.USD&&+j.Valute.USD.Value;
+    if(!(v>0))return;
+    const rate=Math.round(v*100)/100;
+    S.rate=rate;render();
+    const ri=S.rateInfo||{};
+    if(db&&(ri.cbrDate!==j.Date||ri.usdRub!==rate||ri.updatedBy!=='cbr')){
+      await db.doc('settings/main').set({usdRub:rate,cbrDate:j.Date,updatedAt:Date.now(),updatedBy:'cbr'});
+    }
+  }catch(e){/* нет связи с ЦБ: остаётся последний сохранённый курс */}
+}
+let rateTimer=null;
+function startApp(){renderShell();render();if(!unsub)connect();runImport();
+  setTimeout(autoRate,1500);clearInterval(rateTimer);rateTimer=setInterval(autoRate,3*3600*1000);}
 async function runImport(){
   const h=location.hash;
   if(!h.startsWith('#import=')||!db)return;
@@ -621,8 +638,8 @@ function renderCur(){
     ${S.curOpen?`<div class="cur-pop glass">
       <span class="label">Курс доллара</span>
       <div style="display:flex;gap:8px;align-items:center"><span style="white-space:nowrap">1 $ =</span><label class="rub" style="flex:1"><input class="inp num" id="rateIn" inputmode="decimal" value="${esc(keepVal)}" aria-label="Рублей за доллар" ${S.readOnly?'disabled':''}></label></div>
-      ${S.readOnly?'':'<button class="btn btn-gold btn-sm" id="rateSave">Сохранить курс</button>'}
-      <p>${ri&&ri.updatedAt?`Обновил ${esc(ownerName(ri.updatedBy)||'кто-то')} · ${ago(ri.updatedAt)}.`:''} Курс общий для вас обоих. Суммы вводятся в рублях, а доллары пересчитываются по нему.</p>
+      ${S.readOnly?'':'<button class="btn btn-gold btn-sm" id="rateSave">Поставить вручную</button>'}
+      <p>${ri&&ri.updatedBy==='cbr'?`Курс ЦБ РФ на ${esc(fmtDate(String(ri.cbrDate||'').slice(0,10)))}, подтягивается сам при входе.`:ri&&ri.updatedAt?`Поставил вручную ${esc(ownerName(ri.updatedBy)||'кто-то')} · ${ago(ri.updatedAt)}. При следующем входе снова подтянется курс ЦБ.`:''} Суммы вводятся в рублях, доллары считаются по этому курсу.</p>
     </div>`:''}`;
   el.querySelectorAll('[data-cur]').forEach(b=>b.onclick=()=>{S.cur=b.dataset.cur;store('kazna_cur',S.cur);render();if(S.draft)redraw();});
   $('#rateBtn').onclick=()=>{S.curOpen=!S.curOpen;renderCur();if(S.curOpen)$('#rateIn')&&$('#rateIn').select();};
