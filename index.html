@@ -118,7 +118,7 @@ button{cursor:pointer}
 .tip div{display:flex;justify-content:space-between;gap:14px;color:var(--pearl-soft)}
 .tip div span:last-child{color:var(--pearl);font-variant-numeric:tabular-nums}
 .settle{display:grid;gap:14px}
-.settle-cols{display:grid;grid-template-columns:1fr 1fr;gap:10px}
+.settle-cols{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:10px}
 .settle-p{display:grid;gap:6px;padding:12px 14px;border-radius:12px;background:var(--glass-3);border:1px solid var(--line)}
 .settle-p .who-h{display:flex;align-items:center;gap:8px;font-weight:600}
 .settle-p .row2{display:flex;justify-content:space-between;gap:10px;font-size:12.5px;color:var(--pearl-dim)}
@@ -152,6 +152,9 @@ button{cursor:pointer}
 .ava{width:30px;height:30px;border-radius:50%;display:grid;place-items:center;font-family:var(--serif);font-weight:600;font-size:14px;border:1px solid var(--line-2);background:radial-gradient(circle at 30% 25%,rgba(236,217,162,.35),rgba(140,106,44,.25));color:var(--gold-pale)}
 .ava.s{background:radial-gradient(circle at 30% 25%,rgba(236,232,225,.3),rgba(120,120,128,.25));color:var(--pearl)}
 .ava.sm{width:24px;height:24px;font-size:12px}
+.ava.k{background:radial-gradient(circle at 30% 25%,rgba(214,160,165,.32),rgba(122,32,40,.3));color:#f3d9db}
+.ava.two{font-size:11.5px;letter-spacing:-.04em}
+.ava.sm.two{font-size:9.5px}
 main{max-width:1240px;margin:0 auto;padding-block:8px 60px;padding-left:max(16px,env(safe-area-inset-left,0px));padding-right:max(16px,env(safe-area-inset-right,0px));display:grid;gap:16px}
 .head{display:flex;align-items:flex-end;justify-content:space-between;gap:16px;flex-wrap:wrap;padding:14px 4px 4px}
 .head h1{margin:0;font-family:var(--serif);font-weight:500;font-size:clamp(28px,4vw,40px);line-height:1.1;text-wrap:balance}
@@ -210,7 +213,7 @@ main{max-width:1240px;margin:0 auto;padding-block:8px 60px;padding-left:max(16px
 .search .inp{padding-left:34px;background:var(--glass);-webkit-backdrop-filter:blur(14px);backdrop-filter:blur(14px)}
 
 .rows{display:grid;gap:8px}
-.row{display:grid;grid-template-columns:minmax(0,2.1fr) minmax(0,1.1fr) minmax(0,1.6fr) minmax(0,1fr) 40px;gap:16px;align-items:center;padding:14px 16px;cursor:pointer;position:relative;overflow:hidden;transition:border-color .25s var(--ease),transform .25s var(--ease)}
+.row{display:grid;grid-template-columns:minmax(0,2.1fr) minmax(0,1.1fr) minmax(0,1.6fr) minmax(0,1fr) minmax(40px,auto);gap:16px;align-items:center;padding:14px 16px;cursor:pointer;position:relative;overflow:hidden;transition:border-color .25s var(--ease),transform .25s var(--ease)}
 .row::after{content:"";position:absolute;top:0;bottom:0;width:40%;left:-60%;background:linear-gradient(100deg,transparent,rgba(236,217,162,.08),transparent);transition:left .9s var(--ease);pointer-events:none}
 .row:hover{border-color:var(--line-2);transform:translateY(-1px)}
 .row:hover::after{left:120%}
@@ -316,9 +319,55 @@ input[type=date]::-webkit-calendar-picker-indicator{cursor:pointer;opacity:.55;f
 .cur-pop{position:absolute;right:0;top:calc(100% + 10px);width:250px;padding:14px;display:grid;gap:10px;z-index:30;background:rgba(24,24,27,.97);box-shadow:0 18px 40px rgba(0,0,0,.5)}
 .cur-pop p{margin:0;font-size:12px;color:var(--pearl-dim)}
 .duo{display:inline-flex}
-.duo .ava+.ava{margin-left:-9px;box-shadow:0 0 0 2px rgba(20,20,22,.9)}
+.duo{gap:3px}
+.chat-link{display:inline-flex!important;align-items:center;gap:6px;margin-top:7px;padding:4px 10px;border-radius:8px;border:1px solid var(--line-2);background:rgba(236,217,162,.08);color:var(--gold-pale)!important;font-size:12px!important;font-weight:500;text-decoration:none;width:auto!important;transition:background .2s,border-color .2s}
+.chat-link:hover{background:rgba(236,217,162,.16);border-color:var(--gold)}
+.chat-btn{text-decoration:none;color:var(--gold-pale);border-color:rgba(201,167,95,.45)}
+.links{display:flex;gap:6px;flex-wrap:wrap;margin-top:6px}
+.links:empty{display:none}
+.lchip{display:inline-flex;align-items:center;gap:6px;padding:4px 10px;border-radius:20px;border:1px solid var(--line-2);background:var(--glass-3);color:var(--pearl-soft);font-size:12px;text-decoration:none;transition:color .2s,border-color .2s}
+.lchip:hover{color:var(--gold-pale);border-color:var(--gold)}
+.lchip b{color:var(--pearl);font-weight:500}
+.team{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:8px}
+.tm{display:grid;gap:6px;align-content:start}
+.tm-chip{display:flex;align-items:center;gap:8px;height:40px;padding:0 10px;border-radius:10px;border:1px solid var(--line-2);background:rgba(10,10,12,.45);color:var(--pearl-dim);font-size:13px;font-weight:500;white-space:nowrap;overflow:hidden;transition:all .2s}
+.tm-chip:hover{color:var(--pearl)}
+.tm-chip[aria-pressed="true"]{border-color:var(--gold);background:rgba(236,217,162,.1);color:var(--pearl)}
+.tm-chip:not([aria-pressed="true"]) .ava{opacity:.5}
+.tm .inp{height:38px}
+.share-hint.bad{color:var(--wine)}
+/* калькулятор */
+#calcScrim{z-index:50}
+.calc-modal{position:fixed;z-index:51;left:50%;top:50%;width:min(640px,calc(100% - 24px));max-height:calc(100% - 24px - env(safe-area-inset-top,0px) - env(safe-area-inset-bottom,0px));display:flex;flex-direction:column;
+  background:rgba(18,18,20,.93);-webkit-backdrop-filter:blur(28px);backdrop-filter:blur(28px);border:1px solid var(--line-2);border-radius:18px;box-shadow:0 30px 80px rgba(0,0,0,.6);
+  transform:translate(-50%,-47%) scale(.985);opacity:0;pointer-events:none;transition:transform .4s var(--ease),opacity .3s var(--ease)}
+.calc-modal.on{transform:translate(-50%,-50%);opacity:1;pointer-events:auto}
+.calc-body{overflow-y:auto;padding:18px 20px 22px;display:grid;grid-template-columns:minmax(0,1fr);gap:18px;align-content:start}
+.calc-body>*{min-width:0}
+.calc-body .seg.wide button{white-space:normal;line-height:1.25;padding:8px 8px}
+.item.c{grid-template-columns:minmax(0,1fr) minmax(0,1fr) 28px}
+.calc-res{display:grid;gap:14px;padding:16px 18px;border-radius:14px;border:1px solid var(--line-2);background:linear-gradient(140deg,rgba(201,167,95,.10),rgba(255,255,255,.02) 55%)}
+.cr-lines{display:grid;gap:6px;font-size:13px}
+.cr-lines div{display:flex;justify-content:space-between;gap:12px;color:var(--pearl-soft)}
+.cr-lines div b{color:var(--pearl);font-weight:500;font-variant-numeric:tabular-nums}
+.cr-lines div.minus b{color:var(--pearl-soft)}
+.cr-net{display:flex;align-items:flex-end;justify-content:space-between;gap:12px;flex-wrap:wrap;padding-top:12px;border-top:1px solid var(--line)}
+.cr-net small{display:block;font-size:11px;letter-spacing:.14em;text-transform:uppercase;color:var(--pearl-dim);margin-bottom:4px;font-weight:600}
+.cr-net .v{font-family:"Cormorant Garamond",var(--serif);font-weight:600;font-size:clamp(34px,6vw,46px);line-height:1;padding-bottom:.05em}
+.cr-net em{font-style:normal;font-size:13px;color:var(--pearl-soft);padding:4px 10px;border-radius:20px;border:1px solid var(--line-2)}
+.cr-bar{display:flex;height:10px;border-radius:6px;overflow:hidden;gap:2px;background:rgba(255,255,255,.04)}
+.cr-bar span{height:100%}
+.cr-bar .b-exp{background:#6e7380}.cr-bar .b-tax{background:rgba(236,232,225,.38)}.cr-bar .b-net{background:linear-gradient(90deg,var(--gold-deep),var(--gold),var(--gold-pale))}
+.cr-leg{display:flex;gap:14px;flex-wrap:wrap;font-size:12px;color:var(--pearl-dim)}
+.cr-leg span{display:inline-flex;align-items:center;gap:6px}
+.cr-leg i{width:9px;height:9px;border-radius:3px;display:inline-block}
+.cr-share{display:grid;gap:6px}
+.cr-share div{display:flex;align-items:center;gap:10px;font-size:13px;color:var(--pearl-soft)}
+.cr-share div span:nth-child(2){flex:1}
+.cr-share div b{color:var(--pearl);font-weight:500;font-variant-numeric:tabular-nums}
+.cr-warn{font-size:12.5px;color:#f0c9cc}
 .d-foot{display:flex;gap:10px;align-items:center;padding:14px 20px;border-top:1px solid var(--line)}
-.d-foot .sp{flex:1;font-size:12px;color:var(--pearl-dim);min-width:0}
+.d-foot .sp{flex:1;font-size:12px;color:var(--pearl-dim);min-width:0;white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
 .confirm{display:flex;gap:8px;align-items:center;flex-wrap:wrap;font-size:12.5px;color:#f0c9cc}
 .toast{position:fixed;z-index:60;left:50%;bottom:calc(24px + env(safe-area-inset-bottom,0px));transform:translate(-50%,20px);opacity:0;padding:10px 16px;border-radius:10px;font-size:13px;transition:all .35s var(--ease);pointer-events:none}
 .toast.on{opacity:1;transform:translate(-50%,0)}
@@ -334,6 +383,7 @@ input[type=date]::-webkit-calendar-picker-indicator{cursor:pointer;opacity:.55;f
   .row .rcol{display:none}
   .row .own{position:absolute;top:14px;right:14px}
   .row .pill{grid-row:1;grid-column:2;margin-right:34px}
+  .row:has(.duo) .pill{margin-right:88px}
 }
 @media (max-width:640px){
   .kpis{grid-template-columns:repeat(2,minmax(0,1fr))}
@@ -350,6 +400,13 @@ input[type=date]::-webkit-calendar-picker-indicator{cursor:pointer;opacity:.55;f
   .item.p>:nth-child(5),.item.e>:nth-child(5){grid-column:3;grid-row:1}
   .item .seg{display:flex}.item .seg button{flex:1}
   .settle-cols{grid-template-columns:1fr!important}
+  .team{grid-template-columns:1fr}
+  .tm{grid-template-columns:minmax(0,1fr) 96px;align-items:center}
+  .item .who button{padding:0 4px;font-size:12px}
+  .d-foot .sp{display:none}
+  .d-foot .btn-txt,.chat-btn .btn-txt{display:none}
+  .calc-modal{width:calc(100% - 16px);border-radius:16px}
+  .calc-body{padding:14px 14px 18px}
   .gen-form{grid-template-columns:1fr 1fr!important}
   .gen-form>.btn{grid-column:1/-1}
   .cur-pop{right:-60px}
@@ -439,7 +496,11 @@ input[type=date]::-webkit-calendar-picker-indicator{cursor:pointer;opacity:.55;f
 })();
 
 /* ===== Данные и справочники ===== */
-const USERS={pasha:{name:'Паша'},sasha:{name:'Саша'}};
+const USERS={pasha:{name:'Паша'},sasha:{name:'Сан Саныч'},sashok:{name:'Сашок'}};
+const PEOPLE=['pasha','sasha','sashok'];
+const INI={pasha:'П',sasha:'СС',sashok:'Сш'};
+const MID={pasha:'Паша',sasha:'Саныч',sashok:'Сашок'};
+const DAT={pasha:'Паше',sasha:'Сан Санычу',sashok:'Сашку'};
 const MAIL_DOMAIN='kazna.app';
 firebase.initializeApp({
   apiKey:"AIzaSyC3esraq60i3H70ZqsjC3lpAmVHJ2ZGqnw",
@@ -470,7 +531,7 @@ const EXP_CATS=['Монтаж','Сценарии','Студия','Съёмка',
 const GEN_CATS=['Подписки','Реклама','Сервисы','Связь','Обучение','Техника','Налоги','Другое'];
 const MONTHS=['янв','фев','мар','апр','май','июн','июл','авг','сен','окт','ноя','дек'];
 
-const S={general:{items:[],transfers:[]},genDraft:null,settleConfirm:false,cur:'rub',rate:80.56,rateEur:null,rateInfo:null,curOpen:false,user:null,projects:[],loaded:false,dbState:'wait',tab:'overview',stage:'all',q:'',draft:null,editId:null,confirmDel:false,readOnly:false};
+const S={general:{items:[],transfers:[]},genDraft:null,settleConfirm:null,calc:null,cur:'rub',rate:80.56,rateEur:null,rateInfo:null,curOpen:false,user:null,projects:[],loaded:false,dbState:'wait',tab:'overview',stage:'all',q:'',draft:null,editId:null,confirmDel:false,readOnly:false};
 let db=null,unsub=null,unsubRate=null,unsubGen=null,loadTimer=null;
 
 const $=s=>document.querySelector(s);
@@ -482,10 +543,31 @@ const money=v=>{
   if(fx){const d=v/(fx.r||1);const s=new Intl.NumberFormat('ru-RU',{maximumFractionDigits:Math.abs(d)<100&&d%1?2:0}).format(Math.abs(d));return (d<0?'−':'')+fx.sym+s;}
   return nf.format(Math.round(v))+' ₽';
 };
-const OWNERS=[{id:'pasha',name:'Паша'},{id:'sasha',name:'Саша'},{id:'both',name:'Вместе'}];
+const OWNERS=[{id:'pasha',name:'Паша'},{id:'sasha',name:'Сан Саныч'},{id:'sashok',name:'Сашок'},{id:'both',name:'Вместе'}];
 const ownerName=o=>(OWNERS.find(x=>x.id===o)||{name:''}).name;
-const ownerAva=o=>o==='both'?`<span class="duo own" title="Делаем вместе"><span class="ava sm">П</span><span class="ava sm s">С</span></span>`
-  :`<span class="ava sm own ${o==='sasha'?'s':''}" title="Ведёт ${esc(ownerName(o))}">${esc((ownerName(o)||'·')[0])}</span>`;
+const avaHtml=(k,sm,extra)=>`<span class="ava ${sm?'sm':''} ${k==='sasha'?'s':k==='sashok'?'k':''} ${(INI[k]||'').length>1?'two':''} ${extra||''}" title="${esc(ownerName(k))}">${esc(INI[k]||'·')}</span>`;
+const ownerAva=p=>{
+  if(USERS[p.owner])return avaHtml(p.owner,true,'own');
+  const ks=Object.keys(teamOf(p));
+  return `<span class="duo own" title="Вместе: ${esc(ks.map(ownerName).join(', '))}">${ks.map(k=>avaHtml(k,true)).join('')}</span>`;
+};
+const calcIcon='<svg width="15" height="15" viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-width="1.4" aria-hidden="true"><rect x="3" y="1.8" width="10" height="12.4" rx="2"/><path d="M5.5 4.8h5"/><circle cx="5.9" cy="8.3" r=".55" fill="currentColor"/><circle cx="8" cy="8.3" r=".55" fill="currentColor"/><circle cx="10.1" cy="8.3" r=".55" fill="currentColor"/><circle cx="5.9" cy="11" r=".55" fill="currentColor"/><circle cx="8" cy="11" r=".55" fill="currentColor"/><circle cx="10.1" cy="11" r=".55" fill="currentColor"/></svg>';
+const chatIcon='<svg width="13" height="13" viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-width="1.5" aria-hidden="true"><path d="M2.5 3.5h11v7.5H7l-3 2.5V11H2.5z" stroke-linejoin="round"/></svg>';
+function normUrl(v){
+  v=String(v||'').trim();if(!v)return null;
+  if(/^@[\w.]{2,}$/.test(v))v='https://t.me/'+v.slice(1);
+  else if(!/^https?:\/\//i.test(v)){if(!/^[\w-]+(\.[\w-]+)+/.test(v))return null;v='https://'+v;}
+  try{const u=new URL(v);return /^https?:$/.test(u.protocol)?u.href:null;}catch(e){return null;}
+}
+function linkChips(str){
+  const PL=[[/instagram\.com/,'Instagram'],[/youtube\.com|youtu\.be/,'YouTube'],[/(^|\.)t\.me|telegram/,'Telegram'],[/tiktok\.com/,'TikTok'],[/vk\.com/,'VK'],[/dzen\.ru/,'Дзен']];
+  return String(str||'').split(/[\s,;]+/).map(normUrl).filter(Boolean).slice(0,8).map(u=>{
+    const U=new URL(u),h=U.hostname.replace(/^www\./,''),pl=(PL.find(x=>x[0].test(h))||[0,h])[1];
+    const seg=U.pathname.split('/').filter(Boolean).pop()||'';
+    return `<a class="lchip" href="${esc(u)}" target="_blank" rel="noopener"><b>${esc(pl)}</b>${seg&&pl!==h?esc(decodeURIComponent(seg).slice(0,24)):''}</a>`;
+  }).join('');
+}
+const chatBtn=D=>D.dir==='prod'&&normUrl(D.chat)?`<a class="btn btn-ghost btn-sm chat-btn" href="${esc(normUrl(D.chat))}" target="_blank" rel="noopener">${chatIcon}<span class="btn-txt">Рабочий чат</span></a>`:'';
 const chev='<svg width="10" height="6" viewBox="0 0 10 6" fill="none" stroke="#c9a75f" stroke-width="1.4"><path d="M1 1l4 4 4-4"/></svg>';
 function ddBtn(id,opts,val,attrs,dis){
   const cur=opts.find(o=>o.id===val)||opts[0];
@@ -535,12 +617,21 @@ function calc(p){
   const next=planned.filter(x=>x.date).sort((a,b)=>a.date.localeCompare(b.date))[0];
   return {paid,total,left,exp,profit:paid-exp,next,pct:total?Math.min(paid/total,1):0};
 }
-const defWho=p=>p.owner==='sasha'?'sasha':'pasha';
-function shareOf(p){
-  if(p.owner==='pasha')return 1;
-  if(p.owner==='sasha')return 0;
-  const v=p.share;return v===''||v==null||isNaN(+v)?0.5:Math.min(Math.max(+v,0),100)/100;
+function teamPct(p){
+  if(p.team&&typeof p.team==='object'){const t={};PEOPLE.forEach(k=>{if(p.team[k]!=null)t[k]=+p.team[k]||0;});if(Object.keys(t).length)return t;}
+  const v=p.share,sh=v===''||v==null||isNaN(+v)?50:Math.min(Math.max(+v,0),100);
+  return {pasha:sh,sasha:100-sh};
 }
+function teamOf(p){
+  if(USERS[p.owner])return {[p.owner]:1};
+  const t=teamPct(p),ks=PEOPLE.filter(k=>t[k]!=null);
+  const sum=ks.reduce((a,k)=>a+Math.max(+t[k]||0,0),0),r={};
+  ks.forEach(k=>r[k]=sum>0?Math.max(+t[k]||0,0)/sum:1/ks.length);
+  return r;
+}
+const teamStr=p=>Object.entries(teamOf(p)).map(([k,f])=>ownerName(k)+' '+Math.round(f*100)+'%').join(', ');
+const defWho=p=>USERS[p.owner]?p.owner:(Object.keys(teamOf(p))[0]||'pasha');
+function equalTeam(ks){const n=ks.length,b=Math.floor(100/n),t={};ks.forEach((k,i)=>t[k]=b+(i<100-b*n?1:0));return t;}
 const genTotal=()=>(S.general.items||[]).reduce((a,x)=>a+(+x.amount||0),0);
 function overdueList(list){
   const t=today(),r=[];
@@ -548,17 +639,25 @@ function overdueList(list){
   return r.sort((a,b)=>a.x.date.localeCompare(b.x.date));
 }
 function settle(){
-  const held={pasha:0,sasha:0},ent={pasha:0,sasha:0};
+  const held={},ent={};PEOPLE.forEach(k=>{held[k]=0;ent[k]=0;});
+  const ok=k=>held[k]!=null;
   S.projects.forEach(p=>{
     const dw=defWho(p);let paid=0,exp=0;
-    (p.payments||[]).forEach(x=>{if(x.status!=='paid')return;const a=+x.amount||0;paid+=a;held[x.to==='sasha'||x.to==='pasha'?x.to:dw]+=a;});
-    (p.expenses||[]).forEach(x=>{const a=+x.amount||0;exp+=a;held[x.by==='sasha'||x.by==='pasha'?x.by:dw]-=a;});
-    const pr=paid-exp,sh=shareOf(p);ent.pasha+=pr*sh;ent.sasha+=pr*(1-sh);
+    (p.payments||[]).forEach(x=>{if(x.status!=='paid')return;const a=+x.amount||0;paid+=a;held[ok(x.to)?x.to:dw]+=a;});
+    (p.expenses||[]).forEach(x=>{const a=+x.amount||0;exp+=a;held[ok(x.by)?x.by:dw]-=a;});
+    const pr=paid-exp,tm=teamOf(p);for(const k in tm)ent[k]+=pr*tm[k];
   });
-  (S.general.items||[]).forEach(x=>{const a=+x.amount||0;held[x.by==='sasha'?'sasha':'pasha']-=a;ent.pasha-=a/2;ent.sasha-=a/2;});
-  (S.general.transfers||[]).forEach(t=>{const a=+t.amount||0;if(held[t.from]!=null)held[t.from]-=a;if(held[t.to]!=null)held[t.to]+=a;});
-  const diff=Math.round(held.pasha-ent.pasha);
-  return {held,ent,diff};
+  (S.general.items||[]).forEach(x=>{const a=+x.amount||0;held[ok(x.by)?x.by:'pasha']-=a;ent.pasha-=a/2;ent.sasha-=a/2;});
+  (S.general.transfers||[]).forEach(t=>{const a=+t.amount||0;if(ok(t.from))held[t.from]-=a;if(ok(t.to))held[t.to]+=a;});
+  const debt=PEOPLE.map(k=>({k,v:held[k]-ent[k]})).filter(b=>b.v>0.5).sort((a,b)=>b.v-a.v);
+  const cred=PEOPLE.map(k=>({k,v:ent[k]-held[k]})).filter(b=>b.v>0.5).sort((a,b)=>b.v-a.v);
+  const moves=[];let i=0,j=0;
+  while(i<debt.length&&j<cred.length){
+    const m=Math.min(debt[i].v,cred[j].v),r=Math.round(m);
+    if(r>=1)moves.push({from:debt[i].k,to:cred[j].k,amount:r});
+    debt[i].v-=m;cred[j].v-=m;if(debt[i].v<0.5)i++;if(cred[j].v<0.5)j++;
+  }
+  return {held,ent,moves};
 }
 function agg(list){
   const r={paid:0,left:0,exp:0,profit:0,active:0,count:list.length};
@@ -585,7 +684,7 @@ function renderLogin(){
     e.preventDefault();
     const l=$('#lg').value.trim().toLowerCase(),pw=$('#pw').value;
     const er=$('#lerr'),btn=e.target.querySelector('button[type=submit]');
-    if(!USERS[l]){er.textContent='Такого логина нет. Логин: pasha или sasha';return;}
+    if(!USERS[l]){er.textContent='Такого логина нет. Логин: pasha, sasha или sashok';return;}
     er.textContent='';btn.disabled=true;btn.textContent='Вхожу…';
     try{await fbAuth.signInWithEmailAndPassword(l+'@'+MAIL_DOMAIN,pw);}
     catch(err){
@@ -664,13 +763,15 @@ function renderShell(){
     <div class="brand"><svg width="32" height="32" aria-hidden="true"><use href="#medal"/></svg><div class="wordmark">Казна <em class="gold-text">Гермеса</em></div></div>
     <nav class="tabs" role="tablist" id="tabs"></nav>
     <div class="me">
+      <button class="icon-btn" id="calcBtn" title="Калькулятор прибыли" aria-label="Калькулятор прибыли">${calcIcon}</button>
       <div class="cur" id="cur"></div>
-      <span class="ava ${S.user==='sasha'?'s':''}" title="${esc(me.name)}">${esc(me.name[0])}</span>
+      ${avaHtml(S.user,false)}
       <button class="btn btn-ghost btn-sm" id="logout"><span class="btn-txt">Выйти</span><svg width="14" height="14" viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-width="1.4" aria-label="Выйти"><path d="M6 3H3v10h3M10 5l3 3-3 3M13 8H6"/></svg></button>
     </div>
   </div></header>
   <main id="main"></main>`;
   $('#logout').onclick=()=>fbAuth.signOut();
+  $('#calcBtn').onclick=()=>openCalc();
 }
 
 function renderTabs(){
@@ -778,12 +879,12 @@ function overview(){
       <span class="t"><b>${esc(p.client||'Без названия')}</b><span>${esc(dirOf(p.dir).name)}${x.note?' · '+esc(x.note):''}</span></span>
       <span class="amt num">${money(x.amount)}</span></div>`).join('');
   const recent=[...P].sort((a,b)=>(b.updatedAt||0)-(a.updatedAt||0)).slice(0,6).map(p=>`<div class="li" data-open="${p.id}" role="button" tabindex="0">
-      <span class="ava sm ${p.updatedBy==='sasha'?'s':''}">${esc((USERS[p.updatedBy]||{name:'·'}).name[0])}</span>
+      ${avaHtml(p.updatedBy,true)}
       <span class="t"><b>${esc(p.client||'Без названия')}</b><span>${esc((USERS[p.updatedBy]||{name:'Кто-то'}).name)} · ${ago(p.updatedAt)}</span></span>
       <span class="pill ${stageOf(p.stage).cls}">${stageOf(p.stage).name}</span></div>`).join('');
   return `
   <div class="head reveal"><div><h1>Привет, <em class="gold-text">${esc(USERS[S.user].name)}</em></h1><p>${loading?'Загружаю данные…':`Всего ${P.length} ${plural(P.length,'проект','проекта','проектов')} по четырём направлениям`}</p></div>
-  <div style="display:flex;gap:8px;flex-wrap:wrap">${P.length?'<button class="btn btn-ghost" id="xlsx"><svg width="14" height="14" viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-width="1.5" aria-hidden="true"><path d="M8 2v8M4.5 6.5L8 10l3.5-3.5M3 13h10"/></svg>Выгрузить в Excel</button>':''}${S.readOnly?'':'<button class="btn btn-gold" data-new="prod">+ Новый проект</button>'}</div></div>
+  <div style="display:flex;gap:8px;flex-wrap:wrap"><button class="btn btn-ghost" data-calc="1">${calcIcon}Калькулятор</button>${P.length?'<button class="btn btn-ghost" id="xlsx"><svg width="14" height="14" viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-width="1.5" aria-hidden="true"><path d="M8 2v8M4.5 6.5L8 10l3.5-3.5M3 13h10"/></svg>Выгрузить в Excel</button>':''}${S.readOnly?'':'<button class="btn btn-gold" data-new="prod">+ Новый проект</button>'}</div></div>
   ${dbNote()}
   ${overdueBanner(P)}
   ${kpiBlock(a,g?'проекты и общие расходы':'')}
@@ -847,21 +948,19 @@ function monthChart(){
 }
 function settlePanel(){
   const st=settle(),t=S.general.transfers||[];
-  const amt=Math.abs(st.diff);
-  const res=amt<1?`<div class="big"><small>Итог</small>Вы в расчёте</div>`
-    :`<div class="big"><small>${st.diff>0?'Паша переводит Саше':'Саша переводит Паше'}</small><span class="gold-text">${money(amt)}</span></div>`;
-  const btn=amt<1||S.readOnly?'':S.settleConfirm
-    ?`<div style="display:flex;gap:8px;flex-wrap:wrap"><button class="btn btn-gold btn-sm" id="stYes">Да, перевод сделан</button><button class="btn btn-ghost btn-sm" id="stNo">Отмена</button></div>`
-    :`<button class="btn btn-ghost btn-sm" id="stDo">Отметить перевод</button>`;
-  const col=(k,n)=>`<div class="settle-p"><div class="who-h"><span class="ava sm ${k==='sasha'?'s':''}">${n[0]}</span>${n}</div>
+  const res=!st.moves.length?`<div class="settle-res"><div class="big"><small>Итог</small>Вы в расчёте</div></div>`
+    :st.moves.map((m,i)=>`<div class="settle-res"><div class="big"><small>${esc(ownerName(m.from))} переводит ${esc(DAT[m.to]||ownerName(m.to))}</small><span class="gold-text">${money(m.amount)}</span></div>${S.readOnly?'':S.settleConfirm===i
+      ?`<div style="display:flex;gap:8px;flex-wrap:wrap"><button class="btn btn-gold btn-sm" data-st-yes="${i}">Да, перевод сделан</button><button class="btn btn-ghost btn-sm" data-st-no="1">Отмена</button></div>`
+      :`<button class="btn btn-ghost btn-sm" data-st-do="${i}">Отметить перевод</button>`}</div>`).join('');
+  const col=k=>`<div class="settle-p"><div class="who-h">${avaHtml(k,true)}${esc(ownerName(k))}</div>
     <div class="row2"><span>Доля прибыли</span><b>${money(st.ent[k])}</b></div>
     <div class="row2"><span>На руках</span><b>${money(st.held[k])}</b></div></div>`;
-  const hist=t.slice(-3).reverse().map(x=>`<div><span>${fmtDate(x.date)} · ${ownerName(x.from)} → ${ownerName(x.to)}</span><b class="num">${money(x.amount)}</b></div>`).join('');
+  const hist=t.slice(-3).reverse().map(x=>`<div><span>${fmtDate(x.date)} · ${esc(ownerName(x.from))} → ${esc(ownerName(x.to))}</span><b class="num">${money(x.amount)}</b></div>`).join('');
   return `<div class="settle">
-    <div class="settle-cols">${col('pasha','Паша')}${col('sasha','Саша')}</div>
-    <div class="settle-res">${res}${btn}</div>
+    <div class="settle-cols">${PEOPLE.map(col).join('')}</div>
+    ${res}
     ${hist?`<div class="settle-hist"><span class="label">Последние переводы</span>${hist}</div>`:''}
-    <p class="note" style="padding:0">Свои проекты целиком у того, кто ведёт. Общие делятся по доле из карточки, по умолчанию пополам. Общие расходы делятся пополам. «На руках» значит, кому пришли деньги минус то, что он оплатил сам.</p>
+    <p class="note" style="padding:0">Свои проекты целиком у того, кто ведёт. Совместные делятся по долям из карточки. Общие расходы делятся пополам между Пашей и Сан Санычем. «На руках» значит, сколько пришло человеку минус то, что он оплатил сам.</p>
   </div>`;
 }
 function generalView(){
@@ -871,7 +970,7 @@ function generalView(){
   const topCat=Object.entries(byCat).sort((a,b)=>b[1]-a[1])[0];
   const G=S.genDraft||(S.genDraft={cat:'Подписки',amount:'',date:today(),by:S.user});
   const rows=items.map(x=>`<div class="gen-row"><span class="date">${x.date?fmtDate(x.date):'без даты'}</span>
-    <span class="t"><b>${esc(x.cat)}</b></span><span class="ava sm ${x.by==='sasha'?'s':''}" title="Платил ${esc(ownerName(x.by))}">${esc((ownerName(x.by)||'·')[0])}</span>
+    <span class="t"><b>${esc(x.cat)}</b></span>${avaHtml(x.by,true)}
     <span class="amt num">${money(x.amount)}</span>
     ${S.readOnly?'<span></span>':`<button class="x" type="button" data-gdel="${esc(x.id)}" aria-label="Удалить расход">${xIcon}</button>`}</div>`).join('');
   return `
@@ -887,7 +986,7 @@ function generalView(){
       ${ddBtn('g-cat',GEN_CATS.map(n=>({id:n,name:n})),G.cat,'data-gdd="1" aria-label="На что потратили"','')}
       <label class="rub"><input class="inp num" id="g-amount" type="number" inputmode="decimal" min="0" placeholder="Сумма" value="${esc(G.amount)}" aria-label="Сумма"></label>
       <input class="inp" id="g-date" type="date" value="${esc(G.date)}" aria-label="Дата">
-      <div class="seg who" role="group" aria-label="Кто платил">${['pasha','sasha'].map(k=>`<button type="button" data-gby="${k}" aria-pressed="${G.by===k}" title="Платил ${ownerName(k)}">${ownerName(k)}</button>`).join('')}</div>
+      <div class="seg who" role="group" aria-label="Кто платил">${PEOPLE.map(k=>`<button type="button" data-gby="${k}" aria-pressed="${G.by===k}" title="Платил ${esc(ownerName(k))}">${esc(MID[k])}</button>`).join('')}</div>
       <button class="btn btn-gold" id="g-add">Добавить</button>
     </div></section>`}
   <section class="panel glass"><h2>История <small>${items.length?money(genTotal()):''}</small></h2>${rows?`<div>${rows}</div>`:'<p class="note" style="padding:0">Пока ни одного общего расхода. Добавь подписку или рекламу через форму выше.</p>'}</section>
@@ -910,7 +1009,7 @@ async function exportXlsx(btn){
     await loadXlsx();
     const P=S.projects,X=XLSX.utils,wb=X.book_new();
     const dn=id=>dirOf(id).name,sn=id=>stageOf(id).name;
-    const projects=P.map(p=>{const c=calc(p);return {'Направление':dn(p.dir),'Клиент':p.client,'Контакт':p.contact,'Услуга':p.service,'Этап':sn(p.stage),'Ведёт':ownerName(p.owner),'Доля Паши, %':Math.round(shareOf(p)*100),'Договор, ₽':c.total,'Получено, ₽':c.paid,'Осталось, ₽':c.left,'Расходы, ₽':c.exp,'Прибыль, ₽':c.profit,'Дедлайн':p.deadline,'Что сделано':(p.tasks||[]).map(t=>(t.done?'[x] ':'[ ] ')+t.text).join('; '),'Заметки':p.notes};});
+    const projects=P.map(p=>{const c=calc(p);return {'Направление':dn(p.dir),'Клиент':p.client,'Контакт':p.contact,'Услуга':p.service,'Этап':sn(p.stage),'Ведёт':ownerName(p.owner),'Команда':teamStr(p),'Рабочий чат':p.chat||'','Соцсети эксперта':p.socials||'','Договор, ₽':c.total,'Получено, ₽':c.paid,'Осталось, ₽':c.left,'Расходы, ₽':c.exp,'Прибыль, ₽':c.profit,'Дедлайн':p.deadline,'Что сделано':(p.tasks||[]).map(t=>(t.done?'[x] ':'[ ] ')+t.text).join('; '),'Заметки':p.notes};});
     const pays=[],exps=[];
     P.forEach(p=>{(p.payments||[]).forEach(x=>pays.push({'Клиент':p.client,'Направление':dn(p.dir),'Сумма, ₽':+x.amount||0,'Дата':x.date,'Статус':x.status==='paid'?'Пришло':'Ждём','Кому':ownerName(x.to||defWho(p))}));
       (p.expenses||[]).forEach(x=>exps.push({'Клиент':p.client,'Направление':dn(p.dir),'Категория':x.cat,'Сумма, ₽':+x.amount||0,'Дата':x.date,'Платил':ownerName(x.by||defWho(p))}));});
@@ -942,15 +1041,17 @@ function bindExtras(){
       h.addEventListener('pointerenter',show);h.addEventListener('pointerdown',show);
       h.addEventListener('pointerleave',()=>tip.style.opacity=0);
     });}
-  const sd=$('#stDo');if(sd)sd.onclick=()=>{S.settleConfirm=true;render();};
-  const sn=$('#stNo');if(sn)sn.onclick=()=>{S.settleConfirm=false;render();};
-  const sy=$('#stYes');if(sy)sy.onclick=async()=>{
-    const st=settle(),amt=Math.abs(st.diff);if(amt<1)return;
-    sy.disabled=true;
-    const tr={id:uid(),from:st.diff>0?'pasha':'sasha',to:st.diff>0?'sasha':'pasha',amount:amt,date:today(),by:S.user,at:Date.now()};
+  m.querySelectorAll('[data-st-do]').forEach(b=>b.onclick=()=>{S.settleConfirm=+b.dataset.stDo;render();});
+  m.querySelectorAll('[data-st-no]').forEach(b=>b.onclick=()=>{S.settleConfirm=null;render();});
+  m.querySelectorAll('[data-st-yes]').forEach(b=>b.onclick=async()=>{
+    const mv=settle().moves[+b.dataset.stYes];if(!mv)return;
+    b.disabled=true;
+    const tr={id:uid(),from:mv.from,to:mv.to,amount:mv.amount,date:today(),by:S.user,at:Date.now()};
     const ok=await saveGeneral({items:S.general.items||[],transfers:[...(S.general.transfers||[]),tr]},'Перевод отмечен');
-    S.settleConfirm=false;if(!ok)render();
-  };
+    S.settleConfirm=null;if(!ok)render();
+  });
+  m.querySelectorAll('[data-calc]').forEach(b=>b.onclick=()=>openCalc());
+  m.querySelectorAll('[data-stop]').forEach(a=>{a.addEventListener('click',e=>e.stopPropagation());a.addEventListener('keydown',e=>e.stopPropagation());});
   if(S.tab==='general'&&!S.readOnly){
     const G=S.genDraft;
     const cat=m.querySelector('[data-gdd]');if(cat)cat.onclick=()=>openMenu(cat,GEN_CATS.map(n=>({id:n,name:n})),v=>{G.cat=v;});
@@ -958,9 +1059,10 @@ function bindExtras(){
     const dt=$('#g-date');if(dt)dt.oninput=()=>{G.date=dt.value;};
     m.querySelectorAll('[data-gby]').forEach(b=>b.onclick=()=>{G.by=b.dataset.gby;m.querySelectorAll('[data-gby]').forEach(x=>x.setAttribute('aria-pressed',String(x===b)));});
     const add=$('#g-add');if(add)add.onclick=async()=>{
+      if(!USERS[G.by])G.by='pasha';
       const a=+G.amount;if(!(a>0)){toast('Впиши сумму');am&&am.focus();return;}
       add.disabled=true;
-      const it={id:uid(),cat:G.cat,amount:a,date:G.date||today(),by:G.by==='sasha'?'sasha':'pasha',at:Date.now(),addedBy:S.user};
+      const it={id:uid(),cat:G.cat,amount:a,date:G.date||today(),by:USERS[G.by]?G.by:'pasha',at:Date.now(),addedBy:S.user};
       const ok=await saveGeneral({items:[...(S.general.items||[]),it],transfers:S.general.transfers||[]},'Расход добавлен');
       if(ok){S.genDraft={cat:G.cat,amount:'',date:today(),by:G.by};render();}else add.disabled=false;
     };
@@ -976,8 +1078,8 @@ let rsT=null;addEventListener('resize',()=>{clearTimeout(rsT);rsT=setTimeout(()=
 function emptyState(dir){
   return `<section class="glass empty reveal">
     <svg class="medal" aria-hidden="true"><use href="#medal"/></svg>
-    <h3>Казна пока пустая</h3>
-    <p>Заведи первый проект: клиента, сумму договора, предоплату и расходы. Саша увидит его у себя сразу после сохранения.</p>
+    <h3>Казна пока пустая, <em class="gold-text">милорд</em></h3>
+    <p>Нам нужны продажи, сделай это.<span class="gold-text" style="display:block;margin-top:2px">Я не могу сделать это за тебя</span></p>
     ${S.readOnly?'':`<button class="btn btn-gold" data-new="${dir}">+ Первый проект</button>`}
   </section>`;
 }
@@ -996,13 +1098,13 @@ function dirView(id){
     ...STAGES.filter(s=>counts[s.id]).map(s=>`<button class="chip" aria-pressed="${S.stage===s.id}" data-stage="${s.id}">${s.name}<i>${counts[s.id]}</i></button>`)].join('');
   const rows=L.map(p=>{const c=calc(p),st=stageOf(p.stage);
     return `<article class="row glass" data-open="${p.id}" role="button" tabindex="0">
-      <div class="c1"><b>${esc(p.client||'Без названия')}</b><span>${esc([p.dir==='other'?p.service:'',p.contact].filter(Boolean).join(' · ')||'Контакт не указан')}</span></div>
+      <div class="c1"><b>${esc(p.client||'Без названия')}</b><span>${esc([p.dir==='other'?p.service:'',p.contact].filter(Boolean).join(' · ')||'Контакт не указан')}</span>${p.dir==='prod'&&normUrl(p.chat)?`<a class="chat-link" href="${esc(normUrl(p.chat))}" target="_blank" rel="noopener" data-stop="1">${chatIcon}Рабочий чат</a>`:''}</div>
       <span class="pill ${st.cls}">${st.name}</span>
       <div class="pay"><div class="pay-top"><span><b class="num">${money(c.paid)}</b> из ${money(c.total)}</span><span class="num">${Math.round(c.pct*100)}%</span></div>
         <div class="bar"><span class="in" style="width:${(c.pct*100).toFixed(1)}%"></span></div>
         <div class="pay-top"><span>${c.left?'осталось '+money(c.left):(c.total?'оплачено полностью':'сумма не указана')}</span><span>${c.next?'след. '+fmtDate(c.next.date):''}</span></div></div>
       <div class="rcol"><span>Расходы</span><b class="num">${money(c.exp)}</b><span>прибыль ${money(c.profit)}</span></div>
-      ${ownerAva(p.owner)}
+      ${ownerAva(p)}
     </article>`;}).join('');
   return `
   <div class="head reveal"><div><h1><span class="gold-text" style="font-style:italic">${d.n}</span> ${esc(d.name)}</h1><p>${esc(d.hint)}</p></div>
@@ -1044,7 +1146,7 @@ function openDrawer(id,dir){
   requestAnimationFrame(()=>{scrim.classList.add('on');$('#drawer').classList.add('on');});
   document.addEventListener('keydown',escClose);
 }
-function escClose(e){if(e.key==='Escape'&&!menuEl)closeDrawer();}
+function escClose(e){if(e.key==='Escape'&&!menuEl&&!S.calc)closeDrawer();}
 function closeDrawer(now){
   closeMenu();
   document.removeEventListener('keydown',escClose);
@@ -1082,7 +1184,7 @@ function drawDrawer(){
   const doneN=D.tasks.filter(t=>t.done).length;
   const upd=S.editId&&D.updatedAt?`Изменил ${esc((USERS[D.updatedBy]||{name:'кто-то'}).name)} · ${ago(D.updatedAt)}`:'Новый проект';
   $('#drawer').innerHTML=`
-  <div class="d-head"><h2 id="dTitle">${esc(D.client||'Новый проект')}</h2><span class="pill ${stageOf(D.stage).cls}">${stageOf(D.stage).name}</span>
+  <div class="d-head"><h2 id="dTitle">${esc(D.client||'Новый проект')}</h2><span id="dChatWrap">${chatBtn(D)}</span><span class="pill ${stageOf(D.stage).cls}">${stageOf(D.stage).name}</span>
     <button class="icon-btn" id="dClose" aria-label="Закрыть"><svg width="14" height="14" viewBox="0 0 14 14" stroke="currentColor" stroke-width="1.5"><path d="M2 2l10 10M12 2L2 12"/></svg></button></div>
   <div class="d-body">
     <div class="d-sum">
@@ -1095,14 +1197,15 @@ function drawDrawer(){
       <div class="form">
         <div class="field full"><label for="f-client">Клиент или проект</label><input class="inp" id="f-client" data-k="client" value="${esc(D.client)}" placeholder="Канал, имя клиента" ${dis}></div>
         <div class="field ${D.dir==='other'?'':'full'}"><label for="f-contact">Контакт</label><input class="inp" id="f-contact" data-k="contact" value="${esc(D.contact)}" placeholder="@username" ${dis}></div>
+        ${D.dir==='prod'?`<div class="field full"><label for="f-chat">Ссылка на рабочий чат</label><input class="inp" id="f-chat" data-k="chat" value="${esc(D.chat||'')}" placeholder="https://t.me/+…" ${dis}></div>
+        <div class="field full"><label for="f-socials">Соцсети эксперта</label><input class="inp" id="f-socials" data-k="socials" value="${esc(D.socials||'')}" placeholder="instagram.com/…  youtube.com/@…  t.me/…" ${dis}><div class="links" id="socLinks">${linkChips(D.socials)}</div></div>`:''}
         ${D.dir==='other'?`<div class="field"><label for="f-service">Услуга</label><input class="inp" id="f-service" data-k="service" value="${esc(D.service)}" placeholder="Что продали" ${dis}></div>`:''}
         <div class="field"><label for="f-dir">Направление</label>${ddBtn('f-dir',DIRS,D.dir,'data-dk="dir"',dis)}</div>
         <div class="field"><label for="f-stage">Этап</label>${ddBtn('f-stage',STAGES,D.stage,'data-dk="stage"',dis)}</div>
         <div class="field"><label for="f-total">Сумма договора</label><label class="rub"><input class="inp num" id="f-total" type="number" inputmode="decimal" min="0" data-k="total" value="${esc(D.total)}" placeholder="0" ${dis}></label></div>
         <div class="field"><label for="f-deadline">Дедлайн</label><input class="inp" id="f-deadline" type="date" data-k="deadline" value="${esc(D.deadline)}" ${dis}></div>
         <div class="field full"><label>Ведёт</label><div class="seg wide" role="group" aria-label="Кто ведёт">${OWNERS.map(o=>`<button type="button" data-owner="${o.id}" aria-pressed="${(D.owner||S.user)===o.id}" ${dis}>${o.name}</button>`).join('')}</div></div>
-        ${D.owner==='both'?`<div class="field"><label for="f-share">Доля Паши в прибыли</label><label class="rub pct"><input class="inp num" id="f-share" type="number" inputmode="numeric" min="0" max="100" data-k="share" value="${esc(D.share==null||D.share===''?50:D.share)}" ${dis}></label></div>
-        <div class="field" style="align-self:end"><span class="share-hint" id="shareHint">Саше ${100-Math.min(Math.max(+(D.share==null||D.share===''?50:D.share)||0,0),100)}%</span></div>`:''}
+        ${D.owner==='both'?teamEditor(D.team||(D.team=teamPct(D)),'tm',dis,'Кто в проекте и доли прибыли'):''}
       </div></section>
     <section class="sec"><div class="sec-h"><h3><i>0.2</i>Оплаты</h3>${ro?'':'<button class="btn btn-ghost btn-sm" type="button" data-add="payments">+ Платёж</button>'}</div>
       <div class="items">${pays||'<p class="note" style="padding:0">Добавь предоплату со статусом «Пришло», а будущие платежи с датой и статусом «Ждём».</p>'}</div></section>
@@ -1115,12 +1218,31 @@ function drawDrawer(){
   </div>
   <div class="d-foot">
     ${S.confirmDel?`<div class="confirm">Удалить проект насовсем? <button class="btn btn-wine btn-sm" id="delYes">Удалить</button><button class="btn btn-ghost btn-sm" id="delNo">Отмена</button></div>`
-    :`<span class="sp">${upd}</span>${S.editId&&!ro?`<button class="btn btn-ghost btn-sm" id="del">Удалить</button>`:''}${ro?'':`<button class="btn btn-gold" id="save">Сохранить</button>`}`}
+    :`<span class="sp">${upd}</span><button class="btn btn-ghost btn-sm" id="dCalc" title="Посчитать прибыль">${calcIcon}<span class="btn-txt">Посчитать</span></button>${S.editId&&!ro?`<button class="btn btn-ghost btn-sm" id="del">Удалить</button>`:''}${ro?'':`<button class="btn btn-gold" id="save">Сохранить</button>`}`}
   </div>`;
   bindDrawer();
 }
+const sumHint=t=>{const s=Math.round(Object.values(t).reduce((a,v)=>a+(+v||0),0));return s===100?'Итого 100%':`Итого ${s}%. Должно быть 100%, иначе посчитаю пропорционально`;};
+function teamEditor(t,pre,dis,label){
+  return `<div class="field full"><label>${label}</label>
+    <div class="team">${PEOPLE.map(k=>{const on=t[k]!=null;return `<div class="tm"><button type="button" class="tm-chip" data-${pre}="${k}" aria-pressed="${on}" ${dis}>${avaHtml(k,true)}<span>${esc(ownerName(k))}</span></button>${on?`<label class="rub pct"><input class="inp num" type="number" inputmode="numeric" min="0" max="100" data-${pre}p="${k}" value="${esc(t[k])}" aria-label="Доля: ${esc(ownerName(k))}" ${dis}></label>`:'<span></span>'}</div>`;}).join('')}</div>
+    <span class="share-hint ${Math.round(Object.values(t).reduce((a,v)=>a+(+v||0),0))===100?'':'bad'}" id="${pre}Sum">${sumHint(t)}</span></div>`;
+}
+function bindTeam(root,pre,t,minN,onChange,onInput){
+  root.querySelectorAll(`[data-${pre}]`).forEach(b=>b.onclick=()=>{
+    const k=b.getAttribute('data-'+pre),ks=PEOPLE.filter(x=>t[x]!=null);
+    let next=ks.includes(k)?ks.filter(x=>x!==k):PEOPLE.filter(x=>ks.includes(x)||x===k);
+    if(next.length<minN){toast(minN>1?'В совместном проекте минимум двое. Если один, выбери его в «Ведёт»':'Нужен хотя бы один человек');return;}
+    const eq=equalTeam(next);Object.keys(t).forEach(x=>delete t[x]);Object.assign(t,eq);onChange();
+  });
+  root.querySelectorAll(`[data-${pre}p]`).forEach(inp=>inp.addEventListener('input',()=>{
+    t[inp.getAttribute('data-'+pre+'p')]=inp.value===''?0:+inp.value;
+    const h=document.getElementById(pre+'Sum');if(h){h.textContent=sumHint(t);h.classList.toggle('bad',!/^Итого 100%$/.test(h.textContent));}
+    onInput&&onInput();
+  }));
+}
 function whoSeg(list,i,val,label,dis){
-  return `<div class="seg who" role="group" aria-label="${label}">${['pasha','sasha'].map(k=>`<button type="button" data-who="${list}" data-i="${i}" data-v="${k}" aria-pressed="${val===k}" title="${label}: ${ownerName(k)}" ${dis}><span class="sh">${ownerName(k)[0]}</span><span class="fl">${ownerName(k)}</span></button>`).join('')}</div>`;
+  return `<div class="seg who" role="group" aria-label="${label}">${PEOPLE.map(k=>`<button type="button" data-who="${list}" data-i="${i}" data-v="${k}" aria-pressed="${val===k}" title="${label}: ${esc(ownerName(k))}" ${dis}><span class="sh">${INI[k]}</span><span class="fl">${MID[k]}</span></button>`).join('')}</div>`;
 }
 const xIcon='<svg width="12" height="12" viewBox="0 0 12 12" stroke="currentColor" stroke-width="1.5"><path d="M2 2l8 8M10 2L2 10"/></svg>';
 
@@ -1133,6 +1255,8 @@ function bindDrawer(){
       if(el.dataset.k==='stage'){const ps=dr.querySelector('.d-head .pill');const st=stageOf(el.value);ps.className='pill '+st.cls;ps.textContent=st.name;}
       if(el.dataset.k==='client')$('#dTitle').textContent=el.value||'Новый проект';
       if(el.dataset.k==='total')refreshSum();
+      if(el.dataset.k==='socials'){const l=$('#socLinks');if(l)l.innerHTML=linkChips(el.value);}
+      if(el.dataset.k==='chat'){const w=$('#dChatWrap');if(w)w.innerHTML=chatBtn(D);}
     });
   });
   dr.querySelectorAll('[data-l]').forEach(el=>{
@@ -1151,6 +1275,7 @@ function bindDrawer(){
   });
   dr.querySelectorAll('[data-owner]').forEach(b=>b.onclick=()=>{
     const was=D.owner;D.owner=b.dataset.owner;
+    if(D.owner==='both'&&!D.team)D.team=teamPct(D);
     if((was==='both')!==(D.owner==='both'))redraw();
     else dr.querySelectorAll('[data-owner]').forEach(x=>x.setAttribute('aria-pressed',String(x===b)));
   });
@@ -1158,10 +1283,11 @@ function bindDrawer(){
     const it=D[b.dataset.who][+b.dataset.i];it[b.dataset.who==='payments'?'to':'by']=b.dataset.v;
     b.parentElement.querySelectorAll('button').forEach(x=>x.setAttribute('aria-pressed',String(x===b)));
   });
-  const fs=$('#f-share');if(fs)fs.addEventListener('input',()=>{const v=Math.min(Math.max(+fs.value||0,0),100);$('#shareHint').textContent='Саше '+(100-v)+'%';});
+  if(D.owner==='both'&&D.team)bindTeam(dr,'tm',D.team,2,()=>redraw());
+  const dc=$('#dCalc');if(dc)dc.onclick=()=>openCalc(S.editId||'',JSON.parse(JSON.stringify(D)));
   dr.querySelectorAll('[data-add]').forEach(b=>b.onclick=()=>{
     const k=b.dataset.add;
-    const w=D.owner==='both'?S.user:defWho(D);
+    const w=USERS[D.owner]?D.owner:(D.team&&D.team[S.user]!=null?S.user:defWho(D));
     if(k==='payments')D.payments.push({id:uid(),amount:'',date:today(),status:D.payments.length?'planned':'paid',to:w});
     if(k==='expenses')D.expenses.push({id:uid(),cat:'Монтаж',amount:'',date:today(),by:w});
     if(k==='tasks')D.tasks.push({id:uid(),text:'',done:false});
@@ -1189,7 +1315,9 @@ async function save(){
   const clean={
     dir:D.dir,client:String(D.client).trim(),contact:D.contact||'',service:D.service||'',stage:D.stage,
     total:+D.total||0,deadline:D.deadline||'',owner:D.owner||S.user,notes:D.notes||'',
-    share:D.owner==='both'?Math.min(Math.max(D.share==null||D.share===''?50:+D.share||0,0),100):null,
+    share:null,
+    team:D.owner==='both'?Object.fromEntries(Object.entries(D.team||teamPct(D)).filter(([k])=>USERS[k]).map(([k,v])=>[k,Math.min(Math.max(+v||0,0),100)])):null,
+    chat:String(D.chat||'').trim(),socials:String(D.socials||'').trim(),
     payments:D.payments.filter(x=>+x.amount).map(x=>({id:x.id||uid(),amount:+x.amount,date:x.date||'',status:x.status==='paid'?'paid':'planned',to:x.to||defWho(D)})),
     expenses:D.expenses.filter(x=>+x.amount).map(x=>({id:x.id||uid(),cat:x.cat||'Другое',amount:+x.amount,date:x.date||'',by:x.by||defWho(D)})),
     tasks:D.tasks.filter(x=>String(x.text||'').trim()).map(x=>({id:x.id||uid(),text:String(x.text).trim(),done:!!x.done})),
@@ -1209,6 +1337,95 @@ async function save(){
 async function remove(){
   try{await db.collection('projects').doc(S.editId).delete();toast('Проект удалён');closeDrawer();}
   catch(e){toast('Не удалилось, попробуй ещё раз');}
+}
+/* ===== Калькулятор ===== */
+function calcFrom(p,pid){
+  let tax=0;try{tax=+localStorage.getItem('kazna_tax')||0;}catch(e){}
+  if(!p)return {pid:'',base:'total',total:0,paid:0,rev:'',tax,exps:[{cat:'Монтаж',amount:''}],team:{[USERS[S.user]?S.user:'pasha']:100}};
+  const c=calc(p),tm=teamOf(p);
+  return {pid:pid||p.id||'',base:c.total?'total':'paid',total:c.total,paid:c.paid,rev:c.total||c.paid||'',tax,
+    exps:(p.expenses||[]).filter(x=>+x.amount).map(x=>({cat:x.cat||'Другое',amount:+x.amount})),
+    team:Object.fromEntries(Object.entries(tm).map(([k,f])=>[k,Math.round(f*100)]))};
+}
+function openCalc(pid,obj){
+  closeMenu();
+  const p=obj||(pid?S.projects.find(x=>x.id===pid):null);
+  S.calc=calcFrom(p,pid);
+  if(!$('#calcScrim')){
+    document.body.insertAdjacentHTML('beforeend','<div class="scrim" id="calcScrim"></div><div class="calc-modal" id="calcModal" role="dialog" aria-modal="true" aria-labelledby="calcTitle"></div>');
+    $('#calcScrim').onclick=closeCalc;
+  }
+  drawCalc();
+  requestAnimationFrame(()=>{$('#calcScrim').classList.add('on');$('#calcModal').classList.add('on');});
+  document.addEventListener('keydown',calcEsc);
+}
+function calcEsc(e){if(e.key==='Escape'&&!menuEl)closeCalc();}
+function closeCalc(){
+  closeMenu();document.removeEventListener('keydown',calcEsc);
+  const s=$('#calcScrim'),m=$('#calcModal');if(!s)return;
+  s.classList.remove('on');m.classList.remove('on');S.calc=null;
+  setTimeout(()=>{if(!S.calc){s.remove();m.remove();}},400);
+}
+function calcProjOpts(){
+  const order=Object.fromEntries(DIRS.map((d,i)=>[d.id,i]));
+  return [{id:'',name:'Свой расчёт'},...[...S.projects].sort((a,b)=>(order[a.dir]-order[b.dir])||String(a.client).localeCompare(String(b.client),'ru')).map(p=>({id:p.id,name:(p.client||'Без названия')+' · '+dirOf(p.dir).name}))];
+}
+function drawCalc(){
+  const C=S.calc,m=$('#calcModal');if(!C||!m)return;
+  const body=m.querySelector('.calc-body'),top=body?body.scrollTop:0;
+  const catOpts=EXP_CATS.map(n=>({id:n,name:n}));
+  m.innerHTML=`
+  <div class="d-head"><h2 id="calcTitle">Калькулятор <em class="gold-text" style="font-style:italic">прибыли</em></h2>
+    <button class="icon-btn" id="calcClose" aria-label="Закрыть"><svg width="14" height="14" viewBox="0 0 14 14" stroke="currentColor" stroke-width="1.5"><path d="M2 2l10 10M12 2L2 12"/></svg></button></div>
+  <div class="calc-body">
+    <div class="field"><label>По какому проекту считаем</label>${ddBtn('c-proj',calcProjOpts(),C.pid,'data-cproj="1"','')}</div>
+    ${C.pid?`<div class="seg wide" role="group" aria-label="От какой суммы"><button type="button" data-cbase="total" aria-pressed="${C.base==='total'}">От договора · ${money(C.total)}</button><button type="button" data-cbase="paid" aria-pressed="${C.base==='paid'}">От полученного · ${money(C.paid)}</button></div>`:''}
+    <div class="form">
+      <div class="field"><label for="c-rev">Выручка</label><label class="rub"><input class="inp num" id="c-rev" type="number" inputmode="decimal" min="0" placeholder="0" value="${esc(C.rev)}"></label></div>
+      <div class="field"><label for="c-tax">Налог</label><label class="rub pct"><input class="inp num" id="c-tax" type="number" inputmode="decimal" min="0" max="100" placeholder="0" value="${esc(C.tax||'')}"></label></div>
+    </div>
+    <section class="sec"><div class="sec-h"><h3><i>0.1</i>Расходы</h3><button class="btn btn-ghost btn-sm" type="button" data-cadd="1">+ Расход</button></div>
+      <div class="items">${C.exps.map((x,i)=>`<div class="item c">
+        ${ddBtn('c-cat-'+i,catOpts,x.cat,`data-ccat="${i}" aria-label="На что"`,'')}
+        <label class="rub"><input class="inp num" type="number" inputmode="decimal" min="0" placeholder="Сумма" data-camt="${i}" value="${esc(x.amount)}" aria-label="Сумма расхода"></label>
+        <button class="x" type="button" data-crm="${i}" aria-label="Удалить расход">${xIcon}</button></div>`).join('')||'<p class="note" style="padding:0">Расходов нет. Добавь монтаж, сценарии, студию.</p>'}</div></section>
+    <section class="sec"><div class="sec-h"><h3><i>0.2</i>Как делим</h3></div>${teamEditor(C.team,'ct','','Кто получает и в каких долях')}</section>
+    <div class="calc-res" id="calcRes">${calcResult()}</div>
+  </div>`;
+  const nb=m.querySelector('.calc-body');if(nb)nb.scrollTop=top;
+  bindCalc();
+}
+function calcResult(){
+  const C=S.calc,rev=Math.max(+C.rev||0,0),exp=C.exps.reduce((a,x)=>a+Math.max(+x.amount||0,0),0);
+  const tx=rev*Math.min(Math.max(+C.tax||0,0),100)/100,net=rev-exp-tx,margin=rev?net/rev*100:0;
+  const t=C.team,ks=PEOPLE.filter(k=>t[k]!=null),sum=ks.reduce((a,k)=>a+Math.max(+t[k]||0,0),0);
+  const pct=v=>rev?Math.max(v/rev*100,0):0;
+  return `<div class="cr-lines">
+      <div><span>Выручка</span><b>${money(rev)}</b></div>
+      <div class="minus"><span>Расходы</span><b>−${money(exp)}</b></div>
+      ${tx?`<div class="minus"><span>Налог ${esc(+C.tax)}%</span><b>−${money(tx)}</b></div>`:''}
+    </div>
+    ${rev?`<div class="cr-bar" role="img" aria-label="Из выручки: расходы ${Math.round(pct(exp))}%, налог ${Math.round(pct(tx))}%, прибыль ${Math.round(pct(net))}%">
+      ${exp?`<span class="b-exp" style="width:${pct(exp).toFixed(1)}%"></span>`:''}${tx?`<span class="b-tax" style="width:${pct(tx).toFixed(1)}%"></span>`:''}${net>0?`<span class="b-net" style="width:${pct(net).toFixed(1)}%"></span>`:''}</div>
+    <div class="cr-leg"><span><i style="background:#6e7380"></i>Расходы ${Math.round(pct(exp))}%</span>${tx?`<span><i style="background:rgba(236,232,225,.38)"></i>Налог ${Math.round(pct(tx))}%</span>`:''}<span><i style="background:var(--gold)"></i>Прибыль ${Math.max(Math.round(margin),0)}%</span></div>`:''}
+    <div class="cr-net"><div><small>Чистая прибыль</small><span class="v ${net<0?'':'gold-text'} num" style="${net<0?'color:var(--wine)':''}">${money(net)}</span></div>${rev?`<em>маржа ${Math.round(margin)}%</em>`:''}</div>
+    ${net<0?`<div class="cr-warn">Расходы больше выручки на ${money(-net)}</div>`:''}
+    ${ks.length>1||(ks.length===1&&net)?`<div class="cr-share">${ks.map(k=>`<div>${avaHtml(k,true)}<span>${esc(ownerName(k))} · ${sum?Math.round(Math.max(+t[k]||0,0)/sum*100):Math.round(100/ks.length)}%</span><b>${money(net*(sum?Math.max(+t[k]||0,0)/sum:1/ks.length))}</b></div>`).join('')}</div>`:''}`;
+}
+function updCalc(){const r=$('#calcRes');if(r)r.innerHTML=calcResult();}
+function bindCalc(){
+  const m=$('#calcModal'),C=S.calc;
+  $('#calcClose').onclick=closeCalc;
+  const pj=m.querySelector('[data-cproj]');
+  if(pj)pj.onclick=()=>openMenu(pj,calcProjOpts(),v=>{const p=v?S.projects.find(x=>x.id===v):null;S.calc=calcFrom(p,v);drawCalc();});
+  m.querySelectorAll('[data-cbase]').forEach(b=>b.onclick=()=>{C.base=b.dataset.cbase;C.rev=C[C.base]||'';drawCalc();});
+  const rv=$('#c-rev');if(rv)rv.oninput=()=>{C.rev=rv.value;updCalc();};
+  const tx=$('#c-tax');if(tx)tx.oninput=()=>{C.tax=tx.value;try{localStorage.setItem('kazna_tax',tx.value||'0');}catch(e){}updCalc();};
+  m.querySelectorAll('[data-camt]').forEach(inp=>inp.oninput=()=>{C.exps[+inp.dataset.camt].amount=inp.value;updCalc();});
+  m.querySelectorAll('[data-ccat]').forEach(b=>b.onclick=()=>openMenu(b,EXP_CATS.map(n=>({id:n,name:n})),v=>{C.exps[+b.dataset.ccat].cat=v;}));
+  m.querySelectorAll('[data-crm]').forEach(b=>b.onclick=()=>{C.exps.splice(+b.dataset.crm,1);drawCalc();});
+  const ad=m.querySelector('[data-cadd]');if(ad)ad.onclick=()=>{C.exps.push({cat:'Монтаж',amount:''});drawCalc();const l=[...m.querySelectorAll('[data-camt]')].pop();l&&l.focus();};
+  bindTeam(m,'ct',C.team,1,()=>drawCalc(),updCalc);
 }
 let tt=null;
 function toast(m){const t=$('#toast');t.textContent=m;t.classList.add('on');clearTimeout(tt);tt=setTimeout(()=>t.classList.remove('on'),2600);}
