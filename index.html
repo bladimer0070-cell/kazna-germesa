@@ -631,7 +631,7 @@ function teamOf(p){
 }
 const teamStr=p=>Object.entries(teamOf(p)).map(([k,f])=>ownerName(k)+' '+Math.round(f*100)+'%').join(', ');
 const defWho=p=>USERS[p.owner]?p.owner:(Object.keys(teamOf(p))[0]||'pasha');
-function equalTeam(ks){const n=ks.length,b=Math.floor(100/n),t={};ks.forEach((k,i)=>t[k]=b+(i<100-b*n?1:0));return t;}
+function equalTeam(ks){const v=Math.floor(10000/ks.length)/100,t={};ks.forEach(k=>t[k]=v);return t;}
 const genTotal=()=>(S.general.items||[]).reduce((a,x)=>a+(+x.amount||0),0);
 function overdueList(list){
   const t=today(),r=[];
@@ -1225,7 +1225,7 @@ function drawDrawer(){
 const sumHint=t=>{const s=Math.round(Object.values(t).reduce((a,v)=>a+(+v||0),0));return s===100?'Итого 100%':`Итого ${s}%. Должно быть 100%, иначе посчитаю пропорционально`;};
 function teamEditor(t,pre,dis,label){
   return `<div class="field full"><label>${label}</label>
-    <div class="team">${PEOPLE.map(k=>{const on=t[k]!=null;return `<div class="tm"><button type="button" class="tm-chip" data-${pre}="${k}" aria-pressed="${on}" ${dis}>${avaHtml(k,true)}<span>${esc(ownerName(k))}</span></button>${on?`<label class="rub pct"><input class="inp num" type="number" inputmode="numeric" min="0" max="100" data-${pre}p="${k}" value="${esc(t[k])}" aria-label="Доля: ${esc(ownerName(k))}" ${dis}></label>`:'<span></span>'}</div>`;}).join('')}</div>
+    <div class="team">${PEOPLE.map(k=>{const on=t[k]!=null;return `<div class="tm"><button type="button" class="tm-chip" data-${pre}="${k}" aria-pressed="${on}" ${dis}>${avaHtml(k,true)}<span>${esc(ownerName(k))}</span></button>${on?`<label class="rub pct"><input class="inp num" type="number" inputmode="decimal" step="any" min="0" max="100" data-${pre}p="${k}" value="${esc(t[k])}" aria-label="Доля: ${esc(ownerName(k))}" ${dis}></label>`:'<span></span>'}</div>`;}).join('')}</div>
     <span class="share-hint ${Math.round(Object.values(t).reduce((a,v)=>a+(+v||0),0))===100?'':'bad'}" id="${pre}Sum">${sumHint(t)}</span></div>`;
 }
 function bindTeam(root,pre,t,minN,onChange,onInput){
@@ -1316,7 +1316,7 @@ async function save(){
     dir:D.dir,client:String(D.client).trim(),contact:D.contact||'',service:D.service||'',stage:D.stage,
     total:+D.total||0,deadline:D.deadline||'',owner:D.owner||S.user,notes:D.notes||'',
     share:null,
-    team:D.owner==='both'?Object.fromEntries(Object.entries(D.team||teamPct(D)).filter(([k])=>USERS[k]).map(([k,v])=>[k,Math.min(Math.max(+v||0,0),100)])):null,
+    team:D.owner==='both'?Object.fromEntries(Object.entries(D.team||teamPct(D)).filter(([k])=>USERS[k]).map(([k,v])=>[k,Math.round(Math.min(Math.max(+v||0,0),100)*100)/100])):null,
     chat:String(D.chat||'').trim(),socials:String(D.socials||'').trim(),
     payments:D.payments.filter(x=>+x.amount).map(x=>({id:x.id||uid(),amount:+x.amount,date:x.date||'',status:x.status==='paid'?'paid':'planned',to:x.to||defWho(D)})),
     expenses:D.expenses.filter(x=>+x.amount).map(x=>({id:x.id||uid(),cat:x.cat||'Другое',amount:+x.amount,date:x.date||'',by:x.by||defWho(D)})),
